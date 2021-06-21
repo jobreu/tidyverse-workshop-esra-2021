@@ -1,0 +1,586 @@
+---
+title: "Data Wrangling & Exploration with the Tidyverse in R"
+subtitle: "Data exploration: ggplot2 Basics" 
+author: "Johannes Breuer<br />Stefan Jünger<br />Thomas Ebel"
+date: "2019-05-16"
+location: "GESIS, Mannheim, Germany"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "default-fonts", "../workshop.css"]
+    nature:
+      highlightStyle: "github"
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+
+```{r setup, include = FALSE}
+if (!require(easypackages)) install.packages("easypackages")
+library(easypackages)
+
+packages(
+  "knitr", "rmarkdown", "magrittr", "readr", "ggplot2", "hadley/emo",
+  prompt = FALSE
+)
+
+options(htmltools.dir.version = FALSE)
+
+opts_chunk$set(echo = FALSE, fig.align = "center")
+```
+
+<div class="my-footer">
+  <div style="float: left;"><span>`r gsub("<br />", ", ", gsub("<br /><br />|<a.+$", "", metadata$author))`</span></div>
+  <div style="float: right;"><span>`r metadata$location`, `r metadata$date`</span></div>
+  <div style="text-align: center;"><span>`r gsub(".+<br />", " ", metadata$subtitle)`</span></div>
+</div>
+  
+  
+---
+# Graphics in `R`
+
+Since its early days `R` has always had good capabilities for creating graphics.
+
+A standard `R` installation doesn't require any additional packages to create graphics.
+
+--
+
+```{r load_titanic}
+titanic <- 
+  read_csv(
+    "../../data/titanic/titanic.csv", 
+    col_types = cols()
+    ) %>% 
+  na.omit()
+```
+
+.pull-left[
+```{r graphics_hist, eval = FALSE, echo = TRUE}
+hist(titanic$Age)
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "graphics_hist"}
+```
+]
+
+---
+
+# What is `ggplot2`?
+
+`ggplot2` is another `R` package for creating plots and is part of the `tidyverse`.
+
+--
+
+It uses the *grammar of graphics*
+
+- well-suited for multi-dimensional data
+
+- it expects data (frames) as input
+
+- components of the plot are added as layers
+
+--
+
+```{r plot call, eval = FALSE, echo = TRUE}
+plot_call +
+  layer_1 +
+  layer_2 +
+  ... +
+  layer_n
+```
+
+
+---
+# `ggplot2` examples 
+
+.pull-left[
+```{r radar fig}
+knitr::include_graphics("./pics/143_radar_chart_multi_indiv_2.png")
+```
+]
+
+.pull-right[
+```{r density fig}
+knitr::include_graphics("./pics/21_ggplot2_ddensity_plot.png")
+```
+]
+
+
+<small><small>Sources: https://www.r-graph-gallery.com/wp-content/uploads/2016/05/143_radar_chart_multi_indiv_2.png and https://www.r-graph-gallery.com/wp-content/uploads/2015/09/21_ggplot2_ddensity_plot.png</small></small>
+
+---
+
+# `ggplot2` examples 
+
+.pull-left[
+```{r scatter fig}
+knitr::include_graphics("./pics/51_scatterplot_linear_model_with_CI_ggplot2.png")
+```
+]
+
+.pull-right[
+```{r map fig}
+knitr::include_graphics("./pics/328_Hexbin_map_USA_4.png")
+```
+]
+
+<small><small>Sources: https://www.r-graph-gallery.com/wp-content/uploads/2015/11/51_scatterplot_linear_model_with_CI_ggplot2-300x300.png and https://www.r-graph-gallery.com/wp-content/uploads/2017/12/328_Hexbin_map_USA_4-300x200.png</small></small>
+
+---
+
+# Histograms as in base `R`
+
+```{r ggplot_histogram, out.width = "65%"}
+ggplot(titanic, aes(x = Age)) + 
+  geom_histogram(binwidth = 5)
+```
+
+---
+
+# Components of a plot
+
+According to Wickham (2010, 8)* a layered plot consists of the following components:
+
+<span class="footnote">
+<small><small><span class="red bold">*</span> http://dx.doi.org/10.1198/jcgs.2009.07098</small></small>
+</span>
+
+--
+- data and aesthetic mappings,
+
+--
+
+- geometric objects,
+
+--
+
+- scales,
+
+--
+
+- and facet specification
+
+--
+```{r plot call example, eval = FALSE, echo = TRUE}
+plot_call + #<<
+  data + #<<
+  aesthetics + #<<
+  geometries + #<<
+  scales +
+  facets
+```
+
+---
+
+# Data requirements
+
+You can use one single data frame to create a plot in `ggplot2`.
+- everything on the plot is just data
+- creates a smooth workflow from data wrangling to the final presentation of the results
+
+
+```{r data_science_pic, out.width = "70%"}
+knitr::include_graphics("./pics/data-science_man.png")
+```
+
+<small><small>Source: http://r4ds.had.co.nz</small></small>
+
+--
+
+However, this makes it difficult to add extra features to your plot.
+  - There are ways of doing it anyway
+  - Yet, it requires thinking about what to plot
+
+---
+
+# Why the long format? `r ji("horse")`
+
+`ggplot2` prefers data in the long data format (NB: Of course, only if this is possible and makes sense for the dataset at hand)
+
+- in some scientific disciplines this format is only used for specialized analyses (e.g., time series analysis)
+
+
+.pull-left[
+We may want to get used to it as this format has some benefits:
+
+- every element we aim to plot is an observation
+
+- no thinking required how a specific variable relates to an observation
+
+- most importantly, the long format is more parsimonious
+    - it requires less memory and less disk space
+]
+
+
+.pull-right[
+```{r long_pic, out.width = "40%"}
+knitr::include_graphics("./pics/long.png")
+```
+<small><small>Source: https://github.com/gadenbuie/tidyexplain#tidy-data</small></small>
+]
+  
+---
+
+# Creating your own plot
+
+We do not want to give a lecture on the theory behind data visualization.
+
+- creating plots is all about practice
+
+- ...and 'borrowing' code from others
+
+
+.column-left-half[
+```{r pseudo, eval = FALSE, echo = TRUE}
+please +
+  no +
+  more +
+  pseudo +
+  code +
+  man
+```
+]
+
+.column-right-half[
+Three components are important:
+
+- Plot initiation
+- data input
+- aesthetics definition
+- so-called geoms
+]
+
+
+---
+# Plot initiation
+
+.pull-left[
+`ggplot()` is the most basic command to create a plot:
+
+```{r ggplot_basic, eval = FALSE, echo = TRUE}
+ggplot()
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_basic"}
+```
+]
+
+--
+
+**But it doesn't show anything...**
+
+
+---
+
+# Data input
+
+.pull-left[
+As we've already learned `ggplot()` expects data as input
+
+```{r load titanic data, message = F}
+titanic <- 
+  read_csv(
+    "../../data/titanic/titanic.csv", 
+    col_types = cols()
+    ) %>% 
+  na.omit()
+```
+
+
+```{r ggplot_data, eval = FALSE, echo = TRUE}
+ggplot(data = titanic)
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_data"}
+```
+]
+
+--
+
+**Still nothing there...**
+
+
+---
+
+# `aes`thetics! 
+
+.pull-left[
+`ggplot` requires information about the variables to plot
+
+```{r ggplot_aes, eval = FALSE, echo = TRUE}
+ggplot(data = titanic) +
+  aes(x = Age, y = Fare) #<<
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_aes"}
+```
+]
+
+--
+
+**That's a little bit better, right?**
+
+
+---
+
+# `geom`s!
+
+.pull-left[
+Finally, `ggplot` needs information *how* to plot the variables
+
+```{r ggplot_geom, eval = FALSE, echo = TRUE}
+ggplot(data = titanic) +
+  aes(x = Age, y = Fare) +
+  geom_point() #<<
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_geom"}
+```
+]
+
+--
+
+**A scatter plot!**
+
+---
+
+# Add a line
+
+.pull-left[
+We can also add more than one `geom`
+
+```{r ggplot_line, eval = FALSE, echo = TRUE}
+ggplot(data = titanic) +
+  aes(x = Age, y = Fare) +
+  geom_point() +
+  geom_smooth() #<<
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_line"}
+```
+]
+
+--
+
+**A smoothed regression line!**
+
+---
+
+# Going further: adding group `aes`thetics
+
+.pull-left[
+We can add different colors for different groups in our data
+
+```{r ggplot_group, eval = FALSE, echo = TRUE}
+ggplot(
+  data = titanic,
+  aes(
+    x = Age, 
+    y = Fare, 
+    color = Sex #<<
+    )
+  ) +
+  geom_point()
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_group"}
+```
+]
+
+---
+
+# Manipulating group `aes`thetics
+
+.pull-left[
+We can also change the colors that are used in the plot
+
+```{r ggplot_group_man, eval = FALSE, echo = TRUE}
+ggplot(
+  data = titanic,
+  aes(
+    x = Age, 
+    y = Fare, 
+    color = Sex
+    )
+  ) +
+  geom_point() +
+  scale_color_brewer( #<<
+    palette = "Accent" #<<
+    ) #<<
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "ggplot_group_man"}
+```
+]
+
+---
+
+# Colors and `theme`s
+
+One particular strength of `ggplot2` lies in its theming capabilities.
+
+--
+
+This topic is rather complex and could easily be enough for a separate workshop.
+
+--
+
+However, `ggplot2` has some built-in theme functions that makes theming a plot fairly easy, e.g.,
+
+- `theme_bw()`
+- `theme_dark()`
+- `theme_void()`
+- etc.
+
+See: https://ggplot2.tidyverse.org/reference/ggtheme.html
+
+--
+
+If you want to, you can play around with some of those themes in the exercises for this session.
+
+--
+
+In general, the [`r-color-palettes` repository by Emil Hvitfeldt](https://github.com/EmilHvitfeldt/r-color-palettes) is a good resource for choosing color palettes in `R`.
+
+---
+
+# A note on manipulations
+
+.pull-left[
+Working with combined aesthetics and different data inputs can become cumbersome.
+
+Particularly, plotting similar aesthetics which interfere with the automatic procedures can create conflicts.
+
+Some 'favorites' include:
+
+- Multiple legends
+
+- and various color scales for similar geoms 
+
+- ... and there's more!
+]
+
+.pull-right[
+```{r der_schrei}
+knitr::include_graphics("./pics/800px-The_Scream.jpg")
+```
+]
+
+.right[
+<small><small>Source: https://de.wikipedia.org/wiki/Der_Schrei#/media/File:The_Scream.jpg</small></small>
+]
+
+
+---
+
+# Shortcuts
+
+`ggplot2` is powerful...
+
+- yet, it is admittedly somewhat complicated to use in the beginning
+
+- and it has a steep learning curve
+
+However, there are some conveniet shortcuts that you can use for creating simple plots.
+
+---
+
+# `qplot()` or `quickplot()`
+
+.pull-left[
+```{r qplot_example, eval = FALSE, echo = TRUE}
+qplot(
+  x = titanic$Age, 
+  y = titanic$Fare,
+  geom = "point"
+  )
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "qplot_example"}
+```
+]
+
+---
+
+# `qplot()` or `quickplot()`
+
+.pull-left[
+```{r qplot_example_2, eval = FALSE, echo = TRUE}
+qplot(
+  x = titanic$Age, 
+  y = titanic$Fare,
+  geom = c("point", "smooth") #<<
+  )
+```
+]
+
+--
+
+.pull-right[
+```{r ref.label = "qplot_example_2"}
+```
+]
+
+---
+
+# Some additional resources
+
+- [ggplot2 - Elegant Graphics for Data Analysis](https://www.springer.com/gp/book/9783319242750) by Hadley Wickham
+
+- [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) in *R for Data Science*
+
+- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/) by Claus O. Wilke
+
+- [Data Visualization - A Practical Introduction](https://press.princeton.edu/titles/13826.html) by Kieran Healy
+
+- [data-to-viz](https://www.data-to-viz.com/)
+
+- [R Graph Gallery](https://www.r-graph-gallery.com/)
+
+- [BBC Visual and Data Journalism cookbook for R graphics](https://bbc.github.io/rcookbook/#how_to_create_bbc_style_graphics)
+
+- [ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+
+---
+
+class: center, middle
+
+# [Exercise](https://jobreu.github.io/tidyverse-workshop-gesis-2019/exercises/B4_ggplot2Basics_exercises_question.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
+
+## [Solutions](https://jobreu.github.io/tidyverse-workshop-gesis-2019/solutions/B4_ggplot2Basics_exercises_solution.html)

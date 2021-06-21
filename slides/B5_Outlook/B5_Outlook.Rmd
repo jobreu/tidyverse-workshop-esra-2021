@@ -1,0 +1,113 @@
+---
+title: "Data Wrangling & Exploration with the Tidyverse in R"
+subtitle: "Outlook"
+author: "Johannes Breuer<br />Stefan Jünger<br />Thomas Ebel"
+date: "2019-05-16"
+location: "GESIS, Mannheim, Germany"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "default-fonts", "../workshop.css"]
+    nature:
+      highlightStyle: "github"
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+
+```{r setup, include = FALSE}
+if (!require(easypackages)) install.packages("easypackages")
+library(easypackages)
+
+packages(
+  "knitr", "rmarkdown", "tibble", "magrittr", "readr", "ggplot2", "hadley/emo",
+  prompt = FALSE
+)
+
+options(htmltools.dir.version = FALSE)
+
+opts_chunk$set(echo = FALSE, fig.align = "center")
+```
+
+<div class="my-footer">
+  <div style="float: left;"><span>`r gsub("<br />", " & ", gsub("<br /><br />|<a.+$", "", metadata$author))`</span></div>
+  <div style="float: right;"><span>`r metadata$location`, `r metadata$date`</span></div>
+  <div style="text-align: center;"><span>`r gsub(".+<br />", " ", metadata$title)`</span></div>
+  </div>
+  
+---
+
+# Course recap
+
+```{r recap 1, echo = F}
+tribble(
+  ~"Session", ~"Example content", 
+  "Introduction", "What is the tidyverse and what is it good for?",
+  "Tidyverse terminology: tibbles & pipes", "%>% operator & tibbles",
+  "Tidy data", "Gathering and spreading from wide to long and back, separating & uniting values",
+  "Importing data", "Importing CSV, Excel, SPSS, and Stata files", 
+  "Data wrangling: Part 1", "Renaming, filtering, selecting, new variables, recoding, missing values, arranging"
+) %>% 
+kable(
+    format = "html"
+  , align = "ll"
+  , escape = FALSE
+)
+```
+
+
+
+---
+
+# Course recap
+
+```{r recap 2, echo = F}
+tribble(
+  ~"Session", ~"Example content", 
+  "Data wrangling: Part 2", "Advanced selecting, filtering, creation and transformation of variables, strings and factors",
+  "Relational data", "Mutating joins, filtering joins, set operations",
+  "Data exploration I: Summary statistics", "Grouping and summarizing data",
+  "Data exploration II: ggplot2 basics", "Layers: Data, aesthetics, and geoms",
+  "Outlook", "What we did and what we did not cover in this workshop"
+) %>% 
+kable(
+    format = "html"
+  , align = "ll"
+  , escape = FALSE
+)
+```
+
+---
+
+# Where to go from here?
+
+Some topics that we did not cover or only briefly touched upon that you might want to explore next/further:
+
+- working with strings (with [`stringr`](https://stringr.tidyverse.org/index.html))
+
+- working with factors (with [`forcats`](https://forcats.tidyverse.org/))
+
+- working with times and dates (with [`lubridate`](https://lubridate.tidyverse.org/))
+
+- working with labelled data (with [`haven`](https://github.com/tidyverse/haven) and [`sjlabelled`](https://github.com/strengejacke/sjlabelled))
+
+- advanced plotting with [`ggplot2`](https://ggplot2.tidyverse.org/)
+
+- tidy modeling (using the [`broom`](https://github.com/tidymodels/broom) package)
+
+- reporting & publishing (with [`RMarkdown`](https://rmarkdown.rstudio.com) and [`knitr`](http://yihui.name/knitr))
+
+- functional programming (with the [`purrr` package](https://purrr.tidyverse.org/))
+
+---
+
+# Acknowledgements `r ji("heart")`
+
+All slides were created with the `R` package [`xaringan`](https://github.com/yihui/xaringan) which builds on [`remark.js`](https://remarkjs.com), [`knitr`](http://yihui.name/knitr), and [`R Markdown`](https://rmarkdown.rstudio.com). The exercises were created with the [`unilur` package](https://github.com/koncina/unilur).  
+
+The `workshop.css` file we used for the layout of the slides includes elements from `CSS` files for `xaringan` presentations by [Frederik Aust](https://github.com/crsh) and [David Zimmer](https://github.com/DavZim).  
+
+We thank Anne Carome from *RStudio* for sending us some nice hex stickers for this workshop, Claudia O'Donovan-Bellante and her team for taking good care of the organization of this workshop, and all of you for participating!
+
+
+
