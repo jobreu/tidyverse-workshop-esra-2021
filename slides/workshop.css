@@ -20,6 +20,11 @@
 
 .highlight {background-color: yellow;}
 
+.title-slide {
+  background-color: #445A6F;  
+  color: #FFFFFF;           
+}
+
 .title-slide .remark-slide-number {
   display: none;
 }
@@ -58,4 +63,12 @@ div.my-footer span {
   font-size: 12pt;
   margin-bottom: 625px;
   margin-right: 10px;
+}
+
+.small .remark-code {
+  font-size: 10pt;
+}
+
+.smaller .remark-code {
+  font-size: 8pt;
 }
