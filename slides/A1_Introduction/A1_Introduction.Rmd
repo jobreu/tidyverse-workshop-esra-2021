@@ -30,7 +30,7 @@ packages("knitr",
 options(htmltools.dir.version = FALSE,
         htmltools.preserve.raw = FALSE)
 
-opts_chunk$set(echo = FALSE,
+opts_chunk$set(echo = TRUE,
                fig.align = "center")
 
 xaringanExtra::use_xaringan_extra(c("tile_view", "clipboard"))
