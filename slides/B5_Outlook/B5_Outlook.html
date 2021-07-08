@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
-    <title>Data Wrangling &amp; Exploration with the Tidyverse in R</title>
+    <title>Introduction to Survey Data Cleaning Using Tidyverse in R</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Johannes Breuer Stefan Jünger Thomas Ebel" />
-    <meta name="date" content="2019-05-16" />
+    <meta name="author" content="Johannes Breuer Stefan Jünger" />
+    <meta name="date" content="2021-07-22" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="..\workshop.css" type="text/css" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="workshop.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Data Wrangling &amp; Exploration with the Tidyverse in R
-## Outlook
-### Johannes Breuer<br />Stefan Jünger<br />Thomas Ebel
-### 2019-05-16
+# Introduction to Survey Data Cleaning Using Tidyverse in R
+## Wrap-Up
+### Johannes Breuer<br />Stefan Jünger
+### 2021-07-22
 
 ---
 
@@ -25,11 +33,11 @@ layout: true
 
 
 &lt;div class="my-footer"&gt;
-  &lt;div style="float: left;"&gt;&lt;span&gt;Johannes Breuer &amp; Stefan Jünger &amp; Thomas Ebel&lt;/span&gt;&lt;/div&gt;
-  &lt;div style="float: right;"&gt;&lt;span&gt;GESIS, Mannheim, Germany, 2019-05-16&lt;/span&gt;&lt;/div&gt;
-  &lt;div style="text-align: center;"&gt;&lt;span&gt;Data Wrangling &amp; Exploration with the Tidyverse in R&lt;/span&gt;&lt;/div&gt;
-  &lt;/div&gt;
-  
+  &lt;div style="float: left;"&gt;&lt;span&gt;Johannes Breuer, Stefan Jünger&lt;/span&gt;&lt;/div&gt;
+  &lt;div style="float: right;"&gt;&lt;span&gt;ESRA 2021, 2021-07-22&lt;/span&gt;&lt;/div&gt;
+  &lt;div style="text-align: center;"&gt;&lt;span&gt;Wrap-Up&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+
 ---
 
 # Course recap
@@ -44,60 +52,19 @@ layout: true
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Introduction &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; What is the tidyverse and what is it good for? &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; What is the tidyverse?, %&gt;% &amp; tibbles &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Tidyverse terminology: tibbles &amp; pipes &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; %&gt;% operator &amp; tibbles &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data import &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Importing CSV, SPSS, and Stata files &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Tidy data &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Gathering and spreading from wide to long and back, separating &amp; uniting values &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data wrangling 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Renaming, recoding, &amp; selecting variables; filtering cases &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Importing data &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Importing CSV, Excel, SPSS, and Stata files &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Data wrangling: Part 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Renaming, filtering, selecting, new variables, recoding, missing values, arranging &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-
----
-
-# Course recap
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Session &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Example content &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Data wrangling: Part 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Advanced selecting, filtering, creation and transformation of variables, strings and factors &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Relational data &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Mutating joins, filtering joins, set operations &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Data exploration I: Summary statistics &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Grouping and summarizing data &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Data exploration II: ggplot2 basics &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Layers: Data, aesthetics, and geoms &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Outlook &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; What we did and what we did not cover in this workshop &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data wrangling 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Transforming variables &amp; grouping cases &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -106,33 +73,52 @@ layout: true
 
 # Where to go from here?
 
-Some topics that we did not cover or only briefly touched upon that you might want to explore next/further:
+- working with **strings** with [`stringr`](https://stringr.tidyverse.org/index.html)
 
-- working with strings (with [`stringr`](https://stringr.tidyverse.org/index.html))
+- working with **factors** with [`forcats`](https://forcats.tidyverse.org/)
 
-- working with factors (with [`forcats`](https://forcats.tidyverse.org/))
+- working with **times and dates** with [`lubridate`](https://lubridate.tidyverse.org/)
 
-- working with times and dates (with [`lubridate`](https://lubridate.tidyverse.org/))
+- working with **labelled data** with [`haven`](https://github.com/tidyverse/haven) and [`sjlabelled`](https://github.com/strengejacke/sjlabelled) (the latter is not associated with the `tidyverse` but still a great package)
 
-- working with labelled data (with [`haven`](https://github.com/tidyverse/haven) and [`sjlabelled`](https://github.com/strengejacke/sjlabelled))
+- survey data **analysis** with the [`survey` package](https://cran.r-project.org/web/packages/survey/index.html) (also not part of the `tidyverse`)
 
-- advanced plotting with [`ggplot2`](https://ggplot2.tidyverse.org/)
+- **visualization** with [`ggplot2`](https://ggplot2.tidyverse.org/)
 
-- tidy modeling (using the [`broom`](https://github.com/tidymodels/broom) package)
+- **reporting &amp; publishing** with [`RMarkdown`](https://rmarkdown.rstudio.com)
 
-- reporting &amp; publishing (with [`RMarkdown`](https://rmarkdown.rstudio.com) and [`knitr`](http://yihui.name/knitr))
+- **functional programming** with the [`purrr` package](https://purrr.tidyverse.org/)
 
-- functional programming (with the [`purrr` package](https://purrr.tidyverse.org/))
+There are also chapters on all of these topics in [*R for Data Science*](https://r4ds.had.co.nz/index.html) (with the exception of the `sjlabelled` and `survey` packages)
+
+---
+
+# The expanding `tidyverse`
+
+There is a growing list of packages that implement/adapt `tidyverse` principles and workflows for different types of analyses.  
+
+Some examples:
+
+- [`tidymodels`](https://www.tidymodels.org/) for modeling and machine learning using `tidyverse` principles
+
+- [`tidygraph`](https://www.data-imaginist.com/2017/introducing-tidygraph/) for a tidy approach to network analysis
+
+- [`tidytext`](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html) for a [tidy approach to text mining](https://www.tidytextmining.com/)
+
+- [`tidybayes`](https://mjskay.github.io/tidybayes/index.html) for tidy Bayesian analyses
 
 ---
 
 # Acknowledgements ❤️
 
-All slides were created with the `R` package [`xaringan`](https://github.com/yihui/xaringan) which builds on [`remark.js`](https://remarkjs.com), [`knitr`](http://yihui.name/knitr), and [`R Markdown`](https://rmarkdown.rstudio.com). The exercises were created with the [`unilur` package](https://github.com/koncina/unilur).  
+All slides were created with the `R` package [`xaringan`](https://github.com/yihui/xaringan) which builds on [`remark.js`](https://remarkjs.com), [`knitr`](http://yihui.name/knitr), and [`RMarkdown`](https://rmarkdown.rstudio.com). The exercises were created with the [`unilur` package](https://github.com/koncina/unilur).  
 
-The `workshop.css` file we used for the layout of the slides includes elements from `CSS` files for `xaringan` presentations by [Frederik Aust](https://github.com/crsh) and [David Zimmer](https://github.com/DavZim).  
+Please make sure to properly cite all data that you use for your research (archives usually provide suggested citations). Also make sure to cite the free and open-source software (FOSS) that you use, such as `R` and the packages for it. To know how to do that, you can use the function `citation(packagename)` in `R`.
 
-We thank Anne Carome from *RStudio* for sending us some nice hex stickers for this workshop, Claudia O'Donovan-Bellante and her team for taking good care of the organization of this workshop, and all of you for participating!
+We thank the ESRA 2021 organizers (especially Marieke Haan), and all of you for participating!
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -179,9 +165,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -190,7 +192,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {
