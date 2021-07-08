@@ -90,3 +90,6 @@ This is where the *verbs* from the `dplyr` package come in.
 ```{r dplyr hex, echo = F, out.width = "25%"}
 include_graphics("./pics/dplyr.png")
 ```
+
+---
+
