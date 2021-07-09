@@ -68,7 +68,7 @@ The (in)famous **80/20-rule**: 80% wrangling, 20% analysis&lt;sup&gt;1&lt;/sup&g
 
 ---
 
-# Data wrangling
+## Data wrangling
 
 Simply put, data wrangling means...
 
@@ -78,13 +78,27 @@ wrangled_data &lt;- original_data %&gt;%
   do_something()
 ```
 
-This is where the *verbs* from the `dplyr` package come in.
+This is where the `dplyr` package come in.
 
 &lt;img src="./pics/dplyr.png" width="25%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Load the data
+## `dplyr` functions
+
+- `dplyr` functions are verbs that signal an action  
+
+- first argument = a data frame  
+
+- output normally also a data frame (tibble) 
+
+- columns (= variables in a tidy data frame) can be referenced without quotation marks (non-standard evaluation)
+
+- actions (verbs) can be applied to columns (variables) and rows (cases/observations)
+
+---
+
+## Load the data
 
 Before we can wrangle the data, we need to load it. We will work with the `csv` version of the data. To better understand what we are doing, it is helpful to consult the [codebook](https://dbk.gesis.org/dbksearch/download.asp?id=67378) for the original data that this synthetic data set is based on. For understanding the naming scheme for the variables it also helps to have a look at the [*GESIS Panel* cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf).
 
@@ -108,23 +122,459 @@ gpc &lt;- read_csv("../../data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
 
 ---
 
-# Renaming variables
+## Note: Tidy vs. untidy data
+
+As a lot of work (by many people) has already gone into the data that these synthetic data set is based on set, data are already tidy. If you collect data yourself, this may not be the case (at least for the raw data). For example, cells may hold more than one value or a variable that should be in one column is spread across multiple columns (e.g., parts of a date or name).
+
+If you need to make your data tidy or change it from wide to long format or vice versa (which may, e.g., be necessary if you work with longitudinal survey data from multiple waves), the [`tidyr` package](https://tidyr.tidyverse.org/) from the `tidyverse` is a good option.
+
+---
+
+## Selecting variables
+
+We might want to reduce our data frame (or create a new one) to only include a subset of specific variables. This can be done with the `dplyr` verb `select`.
+
+
+```r
+gpc_risk &lt;- gpc %&gt;% 
+  select(hzcy001a,
+         hzcy002a,
+         hzcy003a,
+         hzcy004a,
+         hzcy005a)
+
+head(gpc_risk)
+```
+
+```
+## # A tibble: 6 x 5
+##   hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a
+##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1        4        6        3        6        4
+## 2        4        6        6        6        4
+## 3        2        2        2        2        2
+## 4       NA       NA       NA       NA       NA
+## 5        6        6        4        6        6
+## 6        4        4        3        4        4
+```
+
+---
+
+## Selecting variables
+
+There also is a shorthand notation for selecting a set of consecutive columns with `select()`.
+
+
+```r
+gpc_risk &lt;- gpc %&gt;% 
+  select(hzcy001a:hzcy005a)
+
+head(gpc_risk)
+```
+
+```
+## # A tibble: 6 x 5
+##   hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a
+##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1        4        6        3        6        4
+## 2        4        6        6        6        4
+## 3        2        2        2        2        2
+## 4       NA       NA       NA       NA       NA
+## 5        6        6        4        6        6
+## 6        4        4        3        4        4
+```
+
+---
+
+## Unselecting variables
+
+`select()` from `dplyr` also allows you to easily exclude one or more columns/variables.
+
+
+```r
+gpc_risk_self &lt;- gpc_risk %&gt;% 
+  select(-c(hzcy002a, hzcy005a))
+
+head(gpc_risk_self)
+```
+
+```
+## # A tibble: 6 x 3
+##   hzcy001a hzcy003a hzcy004a
+##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1        4        3        6
+## 2        4        6        6
+## 3        2        2        2
+## 4       NA       NA       NA
+## 5        6        4        6
+## 6        4        3        4
+```
+
+---
+
+## Advanced ways of selecting variables
+
+`dplyr` offers a set of helper functions for selecting variables. For a full list of those options, you should check out the [documentation for the `select()` function](https://dplyr.tidyverse.org/reference/select.html).
+
+
+```r
+gpc_cy &lt;- gpc %&gt;% 
+  select(starts_with("hzcy"))
+
+gpc_cat &lt;- gpc %&gt;% 
+  select(ends_with("_cat"))
+
+glimpse(gpc_cat)
+```
+
+```
+## Rows: 3,765
+## Columns: 2
+## $ age_cat       &lt;dbl&gt; 10, 2, 8, 1, 7, 7, 7, 7, 8, 6, 9, 7, 2, 2, 7, 7, 7, 4, 1~
+## $ education_cat &lt;dbl&gt; 3, 3, 1, 3, 3, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 3, 2, 2, 2,~
+```
+
+*Note*: You can also consult the help file for the function in `R`/*RStudio* through the command `?select`.
+
+---
+
+## Renaming variables
 
 As the variable names are not self-explanatory, we might want to change them. We will use 🐍 *snake_case*&lt;sup&gt;1&lt;/sup&gt; in our examples.
 
 
 ```r
-gpc &lt;- gpc %&gt;% 
-  rename(corona_inf_facebook = hzcy090a, # new_name = old_name
-         corona_inf_other_sm = hzcy091a)
+gpc_risk &lt;- gpc_risk %&gt;% 
+  rename(risk_self = hzcy001a, # new_name = old_name
+         risk_surroundings = hzcy002a,
+         risk_hospital = hzcy003a,
+         risk_quarantine = hzcy004a,
+         risk_infect_others = hzcy005a)
+
+names(gpc_risk)
 ```
 
-*Note*: The [`janitor` package](https://github.com/sfirke/janitor) (which is `tidyverse`-oriented) can be used to facilitate several common data cleaning tasks, including renaming variables.
-
+```
+## [1] "risk_self"          "risk_surroundings"  "risk_hospital"     
+## [4] "risk_quarantine"    "risk_infect_others"
+```
 
 .footnote[
 [1] For a good introduction to naming schemes that avoid spaces, you can check out the [Medium post by Patrick Divine](https://medium.com/@pddivine/string-case-styles-camel-pascal-snake-and-kebab-case-981407998841).
 ]
+
+---
+
+## Renaming variables
+
+For some more advanced renaming options, you can use the `dplyr` function `rename_with()`.
+
+
+```r
+gpc_risk &lt;- gpc_risk %&gt;% 
+  rename_with(toupper)
+
+names(gpc_risk)
+```
+
+```
+## [1] "RISK_SELF"          "RISK_SURROUNDINGS"  "RISK_HOSPITAL"     
+## [4] "RISK_QUARANTINE"    "RISK_INFECT_OTHERS"
+```
+
+
+*Note*: The [`janitor` package](https://github.com/sfirke/janitor) (which is `tidyverse`-oriented) can be used to facilitate several common data cleaning tasks, including renaming variables.
+
+---
+
+## Re~~wind~~name selecta
+
+You can also use `select` to select and rename variables in one step.
+
+
+```r
+gpc_risk &lt;- gpc %&gt;% 
+  select(risk_self = hzcy001a,
+         risk_surroundings = hzcy002a,
+         risk_hospital = hzcy003a,
+         risk_quarantine = hzcy004a,
+         risk_infect_others = hzcy005a)
+
+names(gpc_risk)
+```
+
+```
+## [1] "risk_self"          "risk_surroundings"  "risk_hospital"     
+## [4] "risk_quarantine"    "risk_infect_others"
+```
+
+---
+
+## Moving columns
+
+Although the positions of columns in a data frame do not matter for analyses or plotting (unless you want to select columns using their numerical index), you might want to change them. For this purpose, `dplyr` provides the `relocate()` function.
+
+
+```r
+gpc_risk &lt;- gpc_risk %&gt;% 
+  relocate(risk_infect_others, .after = risk_surroundings)
+
+glimpse(gpc_risk)
+```
+
+```
+## Rows: 3,765
+## Columns: 5
+## $ risk_self          &lt;dbl&gt; 4, 4, 2, NA, 6, 4, 4, NA, NA, 4, 3, NA, 5, 4, 6, 5,~
+## $ risk_surroundings  &lt;dbl&gt; 6, 6, 2, NA, 6, 4, 4, NA, NA, 6, 3, NA, 5, 4, 6, 5,~
+## $ risk_infect_others &lt;dbl&gt; 4, 4, 2, NA, 6, 4, 4, NA, NA, 7, 1, NA, 4, 4, 4, 5,~
+## $ risk_hospital      &lt;dbl&gt; 3, 6, 2, NA, 4, 3, 3, NA, NA, 3, 4, NA, 3, 3, 5, 4,~
+## $ risk_quarantine    &lt;dbl&gt; 6, 6, 2, NA, 6, 4, 4, NA, NA, 6, 2, NA, 5, 4, 5, 5,~
+```
+
+*Note*: You can also move a column before a specific other column by provide a variable name to the `.before` argument (instead of `.after`).
+
+---
+
+## `dplyr::relocate()`
+
+&lt;img src="./pics/dplyr_relocate.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;small&gt;&lt;small&gt;Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) &lt;/small&gt;&lt;/small&gt;
+
+---
+
+## Filtering rows/observations
+
+In `R`, you can filter rows/observations dependent on one or more conditions.
+
+To filter rows/observations you can use... 
+- **comparison operators**:
+    - **&lt;** (smaller than)
+    - **&lt;=** (smaller than or equal to)
+    - **==** (equal to)
+    - **!=** (not equal to)
+    - **&gt;=** (larger than or equal to)
+    - **&gt;** (larger than)
+    - **%in%** (included in)
+
+... and combine them with
+- **logical operators**:
+    - **&amp;** (and)
+    - **|** (or)
+    - **!** (not)
+    - **xor** (either or, not both)
+    
+---
+
+## Filtering rows/observations
+
+The `dplyr` solution for filtering rows/observations is the verb `filter()`.
+
+
+```r
+gpc_male &lt;- gpc %&gt;% 
+  filter(sex == 1)
+
+dim(gpc_male)
+```
+
+```
+## [1] 1933  111
+```
+
+---
+
+## Filtering rows based on multiple conditions
+
+
+```r
+gpc_old_men &lt;- gpc %&gt;% 
+  filter(sex == 1, age_cat &gt; 7)
+
+dim(gpc_old_men)
+```
+
+```
+## [1] 643 111
+```
+
+---
+
+## `dplyr::filter` - multiple conditions
+
+By default, multiple conditions in `filter()` are added as &amp; (and). You can, however, also specify multiple conditions differently.
+
+**or** (cases for which at least one of the conditions is true)
+
+.small[
+
+```r
+gpc_old_andor_male &lt;- gpc %&gt;% 
+  filter(sex == 1 |
+           age_cat &gt; 7)
+
+dim(gpc_old_andor_male)
+```
+
+```
+## [1] 2427  111
+```
+]
+
+**xor** (cases for which only one of the two conditions is true)
+
+.small[
+
+```r
+gpc_old_or_male &lt;- gpc %&gt;%
+  filter(xor(sex == 1, 
+             age_cat &gt; 7))
+
+dim(gpc_old_or_male)
+```
+
+```
+## [1] 1784  111
+```
+]
+
+---
+
+## `dplyr::filter()`
+
+&lt;img src="./pics/dplyr_filter.jpg" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;small&gt;&lt;small&gt;Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) &lt;/small&gt;&lt;/small
+
+---
+
+## Advanced ways of filtering observations
+
+.small[
+Similar to `select()` there are some helper functions for `filter()` for advanced filtering of rows. For example, you can...
+
+ - Filter rows based on a range in a numeric variable
+
+
+```r
+gpc_centrist &lt;- gpc %&gt;% 
+    filter(between(political_orientation, 4, 6))
+
+dim(gpc_centrist)
+```
+
+```
+## [1] 2050  111
+```
+
+*Note*: The range specified in `between()` is inclusive (on both sides).
+
+- Filter rows based the values of specific variables matching certain criteria
+
+
+```r
+gpc_risk_low &lt;- gpc_risk %&gt;% 
+  filter(if_all(everything(), ~ . &lt; 4)) # read: if the values of all vars in this df are &lt; 4
+
+dim(gpc_risk_low)
+```
+
+```
+## [1] 294   5
+```
+
+*Note*: The helper function `if_any()` can be used to specify that at least one of the variables needs to match a criterion.
+]
+
+---
+
+## (Re-)Arranging the order of rows
+
+Again, while this does not directly matter for analyses or plotting (unless you want to filter rows by their numeric index), you can rearrange the order of rows in a data set. The appropriate `dplyr` verb for this is `arrange()`.
+
+
+```r
+gpc %&gt;% 
+* arrange(age_cat) %&gt;%
+  select(sex:household) %&gt;% 
+  glimpse()
+```
+
+```
+## Rows: 3,765
+## Columns: 8
+## $ sex                   &lt;dbl&gt; 2, 2, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 2, ~
+## $ age_cat               &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+## $ education_cat         &lt;dbl&gt; 3, 3, 3, 3, 1, 3, 3, 3, 2, 3, 3, 3, 3, 2, 3, 2, ~
+## $ intention_to_vote     &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, NA, 2, 2, 2,~
+## $ choice_of_party       &lt;dbl&gt; 98, 98, 7, 5, 98, 5, 7, 4, 6, 5, 98, 5, NA, 2, 1~
+## $ political_orientation &lt;dbl&gt; 1, 4, 7, 5, 5, 4, 3, 3, 3, 2, 5, 3, 5, 3, 5, 4, ~
+## $ marstat               &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, ~
+## $ household             &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 3, 3, 3, 3, 2, ~
+```
+
+---
+
+## (Re-)Arranging the order of rows
+
+Of course, it is also possible to sort a data frame in descending order of a variable.
+
+
+```r
+gpc %&gt;% 
+* arrange(desc(age_cat)) %&gt;%
+  select(sex:household) %&gt;% 
+  glimpse()
+```
+
+```
+## Rows: 3,765
+## Columns: 8
+## $ sex                   &lt;dbl&gt; 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, ~
+## $ age_cat               &lt;dbl&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, ~
+## $ education_cat         &lt;dbl&gt; 3, 2, 3, 3, 2, 1, 3, 3, 3, 3, 1, 2, 3, 2, 1, 2, ~
+## $ intention_to_vote     &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, NA, 2, 2,~
+## $ choice_of_party       &lt;dbl&gt; 98, 1, 5, 5, 6, 3, 5, 98, 3, 2, 6, 4, 3, 2, 4, 1~
+## $ political_orientation &lt;dbl&gt; 7, 8, 2, 3, 5, 5, 2, 4, 7, 5, 5, 5, 7, 5, 6, 7, ~
+## $ marstat               &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 4, 3, 3, ~
+## $ household             &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 1, 1, ~
+```
+
+*Note*: You can also use `-` instead of `desc()`, if you sort by numeric variables.
+
+---
+
+## (Re-)Arranging the order of rows
+
+Data frames can also be sorted by more than one variable.
+
+
+```r
+gpc %&gt;% 
+* arrange(age_cat, education_cat) %&gt;%
+  select(sex:household) %&gt;% 
+  glimpse()
+```
+
+```
+## Rows: 3,765
+## Columns: 8
+## $ sex                   &lt;dbl&gt; 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, ~
+## $ age_cat               &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+## $ education_cat         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, ~
+## $ intention_to_vote     &lt;dbl&gt; 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ~
+## $ choice_of_party       &lt;dbl&gt; 98, 6, 4, 7, 98, 98, 98, 5, 6, 2, 2, 6, 1, 4, 2,~
+## $ political_orientation &lt;dbl&gt; 5, 6, 3, 6, 3, 5, 3, 3, 3, 3, 4, 8, 6, 4, 5, 3, ~
+## $ marstat               &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, ~
+## $ household             &lt;dbl&gt; 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 2, 3, 3, 3, ~
+```
+
+---
+
+class: center, middle
+
+# [Exercise](https://jobreu.github.io/tidyverse-workshop-esra-2021/exercises/DataWrangling1_question.html) time 🏋️‍♀️💪🏃🚴
+
+## [Solutions](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/DataWrangling1_solution.html)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

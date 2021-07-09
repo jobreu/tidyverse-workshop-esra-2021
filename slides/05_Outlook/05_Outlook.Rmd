@@ -47,7 +47,7 @@ xaringanExtra::use_extra_styles(hover_code_line = TRUE,
 
 ---
 
-# Course recap
+## Course recap
 
 ```{r recap 1, echo = F}
 tribble(
@@ -66,7 +66,7 @@ kable(
 
 ---
 
-# Where to go from here?
+## Where to go from here?
 
 - working with **strings** with [`stringr`](https://stringr.tidyverse.org/index.html)
 
@@ -88,7 +88,7 @@ There are also chapters on all of these topics in [*R for Data Science*](https:/
 
 ---
 
-# The expanding `tidyverse`
+## The expanding `tidyverse`
 
 There is a growing list of packages that implement/adapt `tidyverse` principles and workflows for different types of analyses.  
 
@@ -104,13 +104,10 @@ Some examples:
 
 ---
 
-# Acknowledgements `r ji("heart")`
+## Acknowledgements `r ji("heart")`
 
 All slides were created with the `R` package [`xaringan`](https://github.com/yihui/xaringan) which builds on [`remark.js`](https://remarkjs.com), [`knitr`](http://yihui.name/knitr), and [`RMarkdown`](https://rmarkdown.rstudio.com). The exercises were created with the [`unilur` package](https://github.com/koncina/unilur).  
 
 Please make sure to properly cite all data that you use for your research (archives usually provide suggested citations). Also make sure to cite the free and open-source software (FOSS) that you use, such as `R` and the packages for it. To know how to do that, you can use the function `citation(packagename)` in `R`.
 
 We thank the ESRA 2021 organizers (especially Marieke Haan), and all of you for participating!
-
-
-
