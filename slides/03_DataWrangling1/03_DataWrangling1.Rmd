@@ -6,6 +6,7 @@ date: "2021-07-22"
 location: "ESRA 2021"
 output:
   xaringan::moon_reader:
+    self_contained: true
     lib_dir: libs
     css: ["default", "default-fonts", "workshop.css"]
     nature:
@@ -52,7 +53,7 @@ xaringanExtra::use_extra_styles(hover_code_line = TRUE,
 ```{r, wrangling-cartoon, out.width = "95%", echo = F}
 include_graphics("./pics/data_cowboy.png")
 ```
-<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) </small></small>
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
 
 ---
 
@@ -265,7 +266,7 @@ glimpse(gpc_risk)
 ```{r, relocate-cartoon, out.width = "85%", echo = F}
 include_graphics("./pics/dplyr_relocate.png")
 ```
-<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) </small></small>
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
 
 ---
 
@@ -351,7 +352,7 @@ dim(gpc_old_or_male)
 ```{r, filter-cartoon, out.width = "95%", echo = F}
 include_graphics("./pics/dplyr_filter.jpg")
 ```
-<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) </small></small
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
 
 ---
 
