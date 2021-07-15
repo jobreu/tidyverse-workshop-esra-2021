@@ -192,6 +192,21 @@ glimpse(gpc_cat)
 
 ---
 
+## Advanced ways of selecting variables
+
+Another particularly useful selection helper is `where()`. You can, e.g., use `where()` to select only a specific type of variables, such as `select(where(is.numeric))`. As the synthetic dataset we use in our course only includes numeric variables, however, we will instead use `where()` to select only dichotomous variables (that have a *min* of 0 and a *max* of 1).
+
+```{r where}
+gpc_bin <- gpc %>% 
+  select(where(~ min(.x, na.rm = T) == 0 & max(.x, na.rm = T) == 1)) #<<
+
+gpc_bin %>% 
+  select(1:5) %>% 
+  glimpse()
+```
+
+---
+
 ## Renaming variables
 
 As the variable names are not self-explanatory, we might want to change them. We will use `r ji("snake")` *snake_case*<sup>1</sup> in our examples.

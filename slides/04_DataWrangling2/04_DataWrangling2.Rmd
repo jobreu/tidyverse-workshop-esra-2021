@@ -138,6 +138,43 @@ When we prepare our data for analysis there are generally two things we might wa
 
 ---
 
+## Recode values as `NA`
+
+If you want to recode specific values as `NA`, you can use the is the `dplyr` function `na_if()`. You can do this for an entire dataframe...<sup>1</sup>
+
+```{r na-if-all, eval=FALSE}
+gpc <- gpc %>% 
+  na_if(98) # here we just provide the value to be recoded as NA for all vars
+```
+
+.footnote[
+[1] Remember that all values < 0 have been set as `NA` in this synthetic dataset (unlike in the original data), but there are some values that contain the value 98 representing the response option *I don't know*.
+]
+
+---
+
+## Recode values as `NA`
+
+... for individual variables, in which case you need to combine `na_if()` with `mutate()`,...
+
+```{r na-if-one, eval=FALSE}
+gpc <- gpc %>% 
+  mutate(hzcy044a = na_if(hzcy044a, 98))
+```
+
+---
+
+## Recode values as `NA`
+
+... or for a range of variables. In this case you need to also add the helper function `across()` to the mix, which allows you to apply the same transformation to multiple columns.
+
+```{r na-if-across}
+gpc <- gpc %>% 
+  mutate(across(hzcy044a:hzcy052a, ~na_if(.x, 98)))
+```
+
+---
+
 class: center, middle
 
 # [Exercise](https://jobreu.github.io/tidyverse-workshop-esra-2021/exercises/DataWrangling2_question.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
