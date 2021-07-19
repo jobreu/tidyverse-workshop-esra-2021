@@ -1,0 +1,67 @@
+---
+title: 'Exercise 1'
+author: 'Johannes Breuer & Stefan Jünger'
+date: 'Introduction to Survey Data Cleaning Using Tidyverse in R'
+---
+
+```{r knitr_init, echo=FALSE, cache=FALSE, include=FALSE}
+# custom boxes
+knitr::opts_template$set(
+  clues = list(box.title = "Clues",
+               box.body = list(fill = "#fff9dc", colour = "black"),
+               box.header = list(fill = "#ffec8b", colour = "black"),
+               box.icon = "fa-search",
+               box.collapse = TRUE)
+)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+As this is the very first exercise in this workshop, it is relatively easy and short. Its purpose is to get used to this exercise format and, more importantly, to install all necessary packages for this course.
+
+*Note*: You can find the solutions for this exercise and all other exercises in the `./solutions` folder in the repo/directory that contains the course materials. You can copy code from these exercise files by clicking on the small blue clipboard icon in the code boxes' upper right corner.
+
+And here comes our very first exercise:
+
+```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
+Please install all packages that are listed on slide XX of the Introduction slides ("XXX.html").
+```
+
+```{block, opts.label = "clues"}
+We always recommend using the `easypackages` packages, which can be installed with the command `install.packages("easypackages")`. After loading the package with `library(easypackages)` you can load *and* install packages with the command `easypackages::packages("fancy_package_1", "fancy_package_2", ...)`.
+```
+
+```{r first.exercise, solution = TRUE}
+easypackages::packages(
+  "tidyverse"
+)
+```
+
+And here's another quick exercise
+
+```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
+Load `R`'s built-in dataset `USAarrests`, convert it to a `tibble` and feed it into the function `dplyr::glimpse()`. Ideally, you use a `%>%`-workflow for the last two steps. What do you think happens to the output? 
+```
+
+```{block, opts.label = "clues"}
+We can import built-in data using the `data()` function and set the data name into quotation marks.
+```
+
+```{r second.exercise, solution = TRUE}
+data("USArrests")
+
+USArrests %>% 
+  tibble::as_tibble() %>% 
+  dplyr::glimpse()
+
+# dplyr::glimpse() provides another method of displaying the data. In such small 
+# datasets, in doesn't make a hughe difference. But as tibbles' output are 
+# reduced for large datasets, it provides a convenient method of getting a quick 
+# glimpse (haha) on the data.
+```
+
+
+
+

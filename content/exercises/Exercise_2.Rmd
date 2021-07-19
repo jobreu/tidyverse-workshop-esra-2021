@@ -1,0 +1,91 @@
+---
+title: 'Exercise 2'
+author: 'Johannes Breuer & Stefan Jünger'
+date: 'Introduction to Survey Data Cleaning Using Tidyverse in R'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r knitr_init, echo=FALSE, cache=FALSE, include=FALSE}
+# custom boxes
+knitr::opts_template$set(
+  clues = list(box.title = "Clues",
+               box.body = list(fill = "#fff9dc", colour = "black"),
+               box.header = list(fill = "#ffec8b", colour = "black"),
+               box.icon = "fa-search",
+               box.collapse = TRUE)
+)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
+Load the GESIS Panel data as CSV.
+```
+
+```{block, opts.label = "clues"}
+The file format is CSV, accordingly you need the `readr` library and a function that starts with `read_...`
+```
+
+```{r first.exercise, solution = TRUE}
+library(readr)
+
+gpc <-
+  readr::read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+```
+
+```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
+Convert the variable `sex` to a factor.
+```
+
+```{block, opts.label = "clues"}
+You can do that while importing the data with the `col_types` argument or after loading them.
+```
+
+```{r second.exercise, solution = TRUE}
+gpc <-
+  readr::read_csv(
+    "./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv",
+    col_types = cols(
+      sex = col_factor()
+    )
+  )
+```
+
+```{block, box.title = "3", box.body = list(fill = "white"), box.icon = "fa-star"}
+Export the dataset as Stata file.
+```
+
+```{block, opts.label = "clues"}
+You need the `haven::write_dta()` function.
+```
+
+```{r third.exercise, solution = TRUE}
+gpc <-
+  gpc %>% 
+  haven::write_dta("./MY_CODE/stata_test_file.dta")
+```
+
+```{r include = FALSE}
+unlink("./MY_CODE/stata_test_file.dta")
+```
+
+```{block, box.title = "Bonus", box.body = list(fill = "white"), box.icon = "fa-star"}
+Export the dataset in the statistical software format of your choice and, if you have access to this software on your computer, open it for checking.
+```
+
+```{block, opts.label = "clues"}
+Again, you need one of th `haven::write_...()` functions.
+```
+
+```{r bonus.exercise, solution = TRUE}
+gpc <-
+  gpc %>% 
+  haven::write_dta("./MY_CODE/stata_test_file.sav")
+```
+
+```{r include = FALSE}
+unlink("./MY_CODE/stata_test_file.sav")
+```
