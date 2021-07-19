@@ -23,7 +23,7 @@ source("./content/R/load_packages.R")
 options(htmltools.dir.version = FALSE,
         htmltools.preserve.raw = FALSE)
 
-opts_chunk$set(echo = TRUE, fig.align = "center", message = FALSE, cache = FALSE)
+opts_chunk$set(echo = TRUE, fig.align = "center", message = FALSE)
 
 # load course content table
 source("./content/R/course_content.R")
@@ -38,19 +38,18 @@ xaringanExtra::use_extra_styles(
 ```
 
 <div class="my-footer">
-  <div style="float: left;"><span>`r gsub("<br />", ", ", gsub("<br /><br />|<a.+$", "", metadata$author))`</span></div>
-  <div style="float: right;"><span>`r metadata$location`, `r metadata$date`</span></div>
-  <div style="text-align: center;"><span>`r gsub(".+<br />", " ", metadata$subtitle)`</span></div>
+<div style="float: left;"><span>`r gsub("<br />", ", ", gsub("<br /><br />|<a.+$", "", rmarkdown::metadata$author))`</span></div>
+<div style="float: right;"><span>`r rmarkdown::metadata$location`, `r rmarkdown::metadata$date`</span></div>
+<div style="text-align: center;"><span>`r gsub(".+<br />", " ", rmarkdown::metadata$subtitle)`</span></div>
 </div>
 
 ---
 
-# Getting data into `R`
+## Getting data into `R`
 
 .large[
-Thus far, we've already learned that data can be untidy.
-
-This course is also about making them tidy (as well as 'wrangling' and exploring them).
+This course is about cleaning survey data.
+- thus, making them tidy
 
 There's one important prerequisite:
 
@@ -63,12 +62,12 @@ knitr::include_graphics(normalizePath("./content/img/import_data.png"))
 
 ---
 
-# Getting data into the `tidyverse`
+## Getting data into the `tidyverse`
 
-Whether we want to use our own data or data from others, we need to get data into R.
+`base R` already provides tools to import data
+- e.g., `read.csv()` to import Comma Seperated Value (CSV) files
 
-The `tidyverse` provides some nice tools to do exactly that:
-
+And the `tidyverse` provides some nice tools to do that too:
 - `readr`  (for 'flat' files, such as CSV)
 - `haven`  (for statistical software files, such as SPSS, Stata, and SAS; can also handle labelled data)
 - `readxl` (for Excel spreadsheets)
@@ -81,58 +80,109 @@ A key difference between these packages and others is that `tidyverse` import fu
 
 ---
 
-# A readr example: `read_csv()`
-```{r readr_example, echo = TRUE}
-gpc <- readr::read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+## A readr example: `read_csv()`
+```{r readr_example, echo = TRUE, message = TRUE}
+gpc_csv <- 
+  readr::read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
 ```
 
 Note the column specifications. `readr` 'guesses' them based on the first 1000 observations (we will come back to this later).
 
+
+
 ---
 
-# A readr example: `read_csv()`
-```{r readr_example:output, echo = TRUE}
-gpc
+## A readr example: `read_csv()`
+```{r readr-example-print, eval = FALSE}
+gpc_csv
 ```
 
-It's that easy!
+.tiny[
+```{r readr-example-output, echo = FALSE}
+gpc_csv
+```
+]
 
+The *GESIS Panel* website provides [detailed documentation](https://www.gesis.org/gesis-panel/documentation), including a [cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf).
+]
 ---
 
-# A readxl example: `read_excel()`
+## A readxl example: `read_excel()`
 ```{r readxl_example, echo = TRUE}
-gpc <- readxl::read_xlsx("./data/ZA5667_v1-0-0_Stata14_synthetic-data.xlsx")
+gpc_xlsx <- 
+  readxl::read_xlsx(
+    "./data/ZA5667_v1-0-0_Stata14_synthetic-data.xlsx"
+  )
 ```
 
 No output `r ji("frowning_face")`
 
 ---
 
-# A readxl example: `read_excel()`
-```{r readxl_example_output, echo = TRUE}
-gpc
+## A readxl example: `read_excel()`
+```{r readxl_example_output, echo = TRUE, eval = FALSE}
+gpc_xlsx
 ```
+
+.tiny[
+```{r readr-readxl_example_output-print, echo = FALSE}
+gpc_xlsx
+```
+]
 
 ---
 
-# A haven example: `read_stata()` 
+## A haven example: `read_stata()` 
 ```{r read_stata_example, echo = TRUE}
-gpc <- 
-  haven::read_stata("./data/ZA5667_v1-0-0_Stata14_synthetic-data.dta")
+gpc_dta <- 
+  haven::read_stata(
+    "./data/ZA5667_v1-0-0_Stata14_synthetic-data.dta"
+  )
 ```
 
-Note: The [`gesis` package](https://github.com/expersso/gesis) allows direct access to the *GESIS* Data Catalogue (DBK) in `R`, given that you have a DBK account.
+Note: The [`gesisdata` package](https://cran.r-project.org/web/packages/gesisdata/index.html) allows direct access to the *GESIS* data `R`, given that you have [proper credentials](https://login.gesis.org/).
 
 ---
 
-# A haven example: `read_stata()` 
-```{r read_stata_example_output, echo = TRUE}
-gpc
+## A haven example: `read_stata()` 
+```{r read_stata_example_output, echo = TRUE, eval = FALSE}
+gpc_dta
 ```
+
+.tiny[
+```{r readr-read_stata_example_output-print, echo = FALSE}
+gpc_dta
+```
+]
 
 ---
 
-# `read_stata()`'s siblings
+class: middle
+
+.center[
+```{r same-picture-code, eval = FALSE}
+gpc_csv  ...  pc_xlsx  ...  gpc_dta
+```
+]
+
+.pull-left[
+.tinylicious[
+```{r same-picture-code-print, echo = FALSE}
+gpc_csv
+```
+]
+]
+
+.pull-right[
+```{r same-picture, echo = FALSE}
+knitr::include_graphics(normalizePath("./content/img/same_picture.jpg"))
+```
+]
+
+
+---
+
+## `read_stata()`'s siblings
 
 Indeed, there's also the function `read_spss()` and `read_sas()` to import SPSS and SAS files.
 
@@ -142,187 +192,57 @@ The [`sjlabelled` package](https://cran.r-project.org/web/packages/sjlabelled/in
 
 ---
 
-# There's more
+## There's more
 
 These were just some very first examples of applying functions from each package. They comprise even more functions for different data types.
 
-- `readr`
-  - `read_csv()`
-  - `read_tsv()`
-  - `read_delim()`
-  - `read_fwf()`
-  - `read_table()`
-  - `read_log()`
-- `haven`
-  - `read_sas()`
-  - `read_spss()`
-  - `read_stata()`
+.pull-left[
+`readr`
+- `read_csv()`
+- `read_tsv()`
+- `read_delim()`
+- `read_fwf()`
+- `read_table()`
+- `read_log()`
+]
 
-Not to mention all the helper functions and options. For example, we can define the cells to read from an Excel file by specifying the option `range = "C1:E4"` in
-`read_excel()`
+.pull-right[
+`haven`
+- `read_sas()`
+- `read_spss()`
+- `read_stata()`
+]
 
-
----
-
-# Data specification
-
-- characters
-  - indicated by `<chr>`
-  - specified by `col_character()`
-- integers
-  - indicated by `<int>`
-  - specified by `col_integer()`
-- doubles
-  - indicated by `<dbl>`
-  - specified by `col_double()`
-- factors
-  - indicated by `<fct>`
-  - specified by `col_factor()`
-- logical
-  - indicated by `<lgl>`
-  - specified by `col_logical()`
-  
-.center[**There's more, but we'll leave it at that for now.**]
+Not to mention all the helper functions and options. For example, we can define the cells to read from an Excel file by specifying the option `range = "C1:E4"` in `readxl::read_excel()`
 
 ---
 
-# Changing variable types
-
-As mentioned before, `read_csv` 'guesses' the variable types by scanning the first 1000 observations. NB: **This can go wrong!**
-
-Luckily, we can change the variable type...
-
-- before/while loading the data
-
-- and after loading the data
-
----
-
-# While loading the data in `read_csv`
-
-```{r readr_example_col_change, echo = TRUE, eval = FALSE}
-titanic <-
-  read_csv(
-    "../../data/titanic/titanic.csv",
-    col_types = cols(
-      PassengerId = col_double(),
-      Survived = col_double(),
-      Pclass = col_double(),
-      Name = col_character(),
-      Sex = col_character(),
-      Age = col_double(),
-      SibSp = col_double(),
-      Parch = col_double(),
-      Ticket = col_character(),
-      Fare = col_double(),
-      Cabin = col_character(),
-      Embarked = col_character()
-    )
-  )
-```
-
----
-
-# While loading the data in `read_csv`
-
-```{r readr_example_col_change_display, echo = TRUE, eval = FALSE}
-titanic
-```
-
----
-
-# While loading the data in `read_csv`
-
-```{r readr_example_col_changeD, echo = TRUE, eval = FALSE}
-titanic <-
-  read_csv(
-    "../../data/titanic/titanic.csv",
-    col_types = cols(
-      PassengerId = col_double(),
-      Survived = col_double(),
-      Pclass = col_double(),
-      Name = col_character(),
-      Sex = col_factor(), # This one changed!
-      Age = col_double(),
-      SibSp = col_double(),
-      Parch = col_double(),
-      Ticket = col_character(),
-      Fare = col_double(),
-      Cabin = col_character(),
-      Embarked = col_character()
-    )
-  )
-```
-
----
-
-# While loading the data in `read_csv`
-
-```{r readr_example_col_changeD_display, echo = TRUE, eval = FALSE}
-titanic
-```
-
----
-
-# After loading the data
-
-```{r readr_example_col_change_after, echo = TRUE, eval = FALSE}
-titanic <- readr::read_csv("../../data/titanic/titanic.csv")
-```
-
----
-
-# After loading the data
-
-```{r readr_example_col_changeD_after, echo = TRUE, eval = FALSE}
-titanic <-
-  type_convert( #<<
-    titanic,
-    col_types = cols(
-      PassengerId = col_double(),
-      Survived = col_double(),
-      Pclass = col_double(),
-      Name = col_character(),
-      Sex = col_factor(),
-      Age = col_double(),
-      SibSp = col_double(),
-      Parch = col_double(),
-      Ticket = col_character(),
-      Fare = col_double(),
-      Cabin = col_character(),
-      Embarked = col_character()
-    )
-  )
-```
-
----
-
-# Exporting data
+## Exporting data
 
 Sometimes our data have to leave the `tidyverse` (or even `R`), for example, if we....
 
 - share data with colleagues who do not use `R`
 - want to continue where we left off
-  - particularly, if data wrangling took a long time
-  
+- particularly, if data wrangling took a long time
+
 For such purposes we also need a way to export our data.
 
 All of the packages we have discussed in this session also have designated functions for that.
 
-```{r, out.width = "50%"}
-include_graphics(normalizePath("./content/img/export_data.png"))
+```{r, out.width = "50%", echo = FALSE}
+knitr::include_graphics(normalizePath("./content/img/export_data.png"))
 ```
 
 ---
 
-# Examples: CSV and Stata files
+## Examples: CSV and Stata files
 
 ```{r export_csv, echo = TRUE}
-readr::write_csv(gpc, "gpc_own.csv")
+readr::write_csv(gpc_dta, "gpc_own.csv")
 ```
 
 ```{r export_stata, echo = TRUE}
-haven::write_dta(gpc, "gpc_own.dta")
+haven::write_dta(gpc_csv, "gpc_own.dta")
 ```
 
 Proof that they have been exported:
@@ -335,11 +255,93 @@ unlink("gpc_own.csv")
 unlink("gpc_own.dta")
 ```
 
+---
 
+# Data types
+
+.pull-left[
+characters
+- indicated by `<chr>`
+- specified by `col_character()`
+]
+
+.pull-right[
+integers
+- indicated by `<int>`
+- specified by `col_integer()`
+]
+
+.pull-left[
+doubles
+- indicated by `<dbl>`
+- specified by `col_double()`
+]
+
+.pull-right[
+factors
+- indicated by `<fct>`
+- specified by `col_factor()`
+]
+
+.center[
+logical
+- indicated by `<lgl>`
+- specified by `col_logical()`
+]
+
+.center[**There's more, but we'll leave it at that for now.**]
 
 ---
 
-# Additional packages
+## Changing variable types
+
+As mentioned before, `readr::read_csv()` 'guesses' the variable types by scanning the first 1000 observations. NB: **This can go wrong!**
+
+Luckily, we can change the variable type...
+- before/while loading the data
+- and after loading the data
+
+---
+
+## While loading the data in `readr::read_csv()`
+
+```{r readr_example_col_change, echo = TRUE}
+gpc <-
+  readr::read_csv(
+    "./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv",
+    col_types = cols(
+      age_cat = col_factor()
+    )
+  )
+```
+
+---
+
+```{r readr_example_col_change_display, echo = TRUE}
+gpc
+```
+
+---
+
+# After loading the data
+
+```{r readr_example_col_changeD_after, echo = TRUE}
+gpc <- 
+  read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+
+gpc <-
+  gpc %>% 
+  readr::type_convert(
+    titanic,
+    col_types = cols(
+      age_cat = col_factor()
+    )
+  )
+```
+
+---
+
+## Additional packages
 
 The great benefit of `tidyverse` import functions is the import of the data as tibbles: the data are potentially tidier.
 
@@ -350,7 +352,7 @@ Several other non-tidyverse packages provide similar benefits as they make use o
 
 ---
 
-# Other packages for data import
+## Other packages for data import
 
 - `base` R
 
@@ -366,6 +368,6 @@ Several other non-tidyverse packages provide similar benefits as they make use o
 
 class: center, middle
 
-# [Exercise](https://jobreu.github.io/tidyverse-workshop-gesis-2019/exercises/A4_ImportingData_exercises_question.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
+# [Exercise](https://jobreu.github.io/tidyverse-workshop-esra-2021/exercises/Exercise_2.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
 
-## [Solutions](https://jobreu.github.io/tidyverse-workshop-gesis-2019/solutions/A4_ImportingData_exercises_solution.html)
+## [Solutions](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_2.html)
