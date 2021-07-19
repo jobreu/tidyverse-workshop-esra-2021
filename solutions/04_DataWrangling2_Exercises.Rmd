@@ -1,0 +1,126 @@
+---
+title: 'Exercises Data Wrangling 2 - Solutions'
+# title: 'Exercises Data Wrangling 2'
+author: 'Johannes Breuer, Stefan Jünger'
+date: 'Introduction to Survey Data Cleaning Using Tidyverse in R'
+output:
+  # unilur::tutorial_html: default
+  unilur::tutorial_html_solution: default
+---
+
+```{r knitr_init, echo=FALSE, cache=FALSE, include=FALSE}
+# custom boxes
+knitr::opts_template$set(
+  clues = list(box.title = "clues",
+               box.body = list(fill = "#fff9dc", colour = "black"),
+               box.header = list(fill = "#ffec8b", colour = "black"),
+               box.icon = "fa-search",
+               box.collapse = TRUE)
+)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+In this set of short exercises, we will continue with our data wrangling tasks.
+
+As per usual, before we can do anything else, we first need to load the `tidyverse` package(s) and import the data.
+
+```{r read-data, message = F}
+library(tidyverse)
+
+gpc <- read_csv("../data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+```
+
+In the first exercises, we want to work with the the variables that assess how much people trust specific people or institutions in dealing with the Corona virus. Remember that in the process of creating the synthetic data we are using here, all values < 0 have been set to `NA`. However, if we look into the [codebook for the original data set](https://dbk.gesis.org/dbksearch/download.asp?id=67378), we see that the trust items contain the value 98, representing the response option "I don't know". For our analyses, we probably want to treat this as a missing value.
+
+```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
+Overwrite the variable measuring trust in the federal government in the `gpc` dataframe, so that 98 is a missing value.
+```
+
+```{block, opts.label = "clues"}
+For recoding a value as `NA` in a particular variable, we need to combine two functions from `dplyr`: One that creates a new variable or overwrites an existing one and another one that converts specific values to `NA`.The variable that we want to do this for is named `hzcy048a`.
+```
+
+```{r first-exercise, solution = TRUE}
+gpc <- gpc %>% 
+  mutate(hzcy048a = na_if(hzcy048a, 98))
+```
+
+```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
+Now that we have recoded 98 as `NA` in this variable, let´s create a new variable named `distrust_gov` that captures distrust instead of trust in the federal government.  
+```
+
+```{block, opts.label = "clues"}
+Remember that the correct syntax for recoding values with the corresponding `dplyr` function is `old value (enclosed in backticks) = new value`.
+```
+
+```{r second-exercise, solution = TRUE}
+gpc <- gpc %>% 
+  mutate(distrust_gov = recode(hzcy048a,
+                               `5` = 1,
+                               `4` = 2,
+                               `2` = 4,
+                               `1` = 5))
+```
+
+```{block, box.title = "3", box.body = list(fill = "white"), box.icon = "fa-star"}
+How many of the simulated respondents do not have a missing value for the variable `political_orientation`? To answer this question, please use a function from the `tidyr` package that allows you to exclude cases with missing values.
+```
+
+```{block, opts.label = "clues"}
+To count the number of cases, you can use the base `R` function `nrow()` at the end of your pipe.
+```
+
+```{r third-exercise, solution = TRUE}
+gpc %>% 
+  drop_na(political_orientation) %>% 
+  nrow()
+```
+
+```{block, box.title = "4", box.body = list(fill = "white"), box.icon = "fa-star"}
+Create a new binary variable called `married` in the `gpc` dataframe that has the value 1 if the individual is married and 0 if not. 
+```
+
+```{block, opts.label = "clues"}
+You can make use of the function `ifelse()`. The variable we need to use here is called `marstat` where the value 1 indicates that the person is married.
+```
+
+```{r fourth-exercise, solution = TRUE}
+gpc <- gpc %>% 
+  mutate(married = ifelse(marstat == 1, 1, 0))
+```
+
+```{block, box.title = "5", box.body = list(fill = "white"), box.icon = "fa-star"}
+Let's create another new variable. This time, it should be a character variable named `age_3cat` that has the following unique values representing the respective age categories: "up to 40 years", "41 to 60 years" and "older than 60 years".
+```
+
+```{block, opts.label = "clues"}
+You can use the `between()` helper function in combination with the `dplyr` function for conditional variable creation/transformation. The required existing variable is called `age_cat`. As a side note: For your actual data, you probably would want to have such a variable as an ordered factor, but we have not covered factors in this workshop, so we'll stick with a simple character variable here.
+```
+
+```{r fifth-exercise, solution = TRUE}
+gpc <- gpc %>% 
+  mutate(age_3cat = case_when(
+    between(age_cat, 1, 4) ~ "up to 40 years",
+    between(age_cat, 5, 7) ~ "41 to 60 years",
+    age_cat > 7 ~ "older than 60 years"
+    ))
+```
+
+```{block, box.title = "6", box.body = list(fill = "white"), box.icon = "fa-star"}
+As a final data wrangling exercise, let's create a variable called `info_sum` that represents the sum of all information sources that the (simulated) respondents reported to use to get current information about the Corona virus. You can find the names of the variables we need for this in the previous set of exercises or in the [codebook for the original data set](https://dbk.gesis.org/dbksearch/download.asp?id=67378). However, here we do not want to include the last variable in this series (`hzcy095a`) as that one indicates whether people stated that they do not inform themselves at all.
+```
+
+```{block, opts.label = "clues"}
+Remember that we need to perform this operation rowwise. We can also use a special version of the `across()` helper function that allows us to combine values from multiple columns. If you can't or don't want to consult the codebook for the original data, the variable names we need for this task range from `hzcy084a` to `hzcy093a`.
+```
+
+```{r sixth-exercise, solution = TRUE}
+gpc <- gpc %>% 
+  rowwise() %>%
+  mutate(info_sum = sum(c_across(hzcy084a:hzcy093a),
+                            na.rm = TRUE)) %>% 
+  ungroup()
+```
