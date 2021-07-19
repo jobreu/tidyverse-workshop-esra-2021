@@ -192,7 +192,9 @@ meme_get("DistractedBf") %>%
 ## Workflow
 
 .center[
-<img src="./content/img/data-science.png" width="60%">
+```{r data-science-pic, echo = FALSE, out.width="60%"}
+knitr::include_graphics(normalizePath("./content/img/data-science.png"))
+```
 ]
 <small><small>Source: http://r4ds.had.co.nz/</small></small>
 
@@ -208,7 +210,9 @@ meme_get("DistractedBf") %>%
 ## `Tidyverse` workflow
 
 .center[
-<img src="./content/img/tidyverse-1200x484.png">
+```{r tidyverse-pic, echo = FALSE}
+knitr::include_graphics(normalizePath("./content/img/tidyverse-1200x484.png"))
+```
 ]
 <small><small>Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/</small></small>
 
@@ -271,7 +275,9 @@ Source: https://r4ds.had.co.nz/tidy-data.html
 
 ## Wide vs. long format
 
-<img src="./content/img/wide-long.png" width="90%">
+```{r wide-long-pic, echo = FALSE, out.width="90%"}
+knitr::include_graphics(normalizePath("./content/img/wide-long.png"))
+```
 Source: https://github.com/gadenbuie/tidyexplain#tidy-data
 
 ---
