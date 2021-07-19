@@ -56,7 +56,7 @@ Participants will need a working installation of `R` and *RStudio* and should, i
 # Solutions
 [Exercise 1](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_1.html)
 
-[Exercise 2(https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_2.html)
+[Exercise 2](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_2.html)
 
 [Exercise 3](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_3.html)
 
