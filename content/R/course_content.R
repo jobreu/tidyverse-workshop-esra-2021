@@ -5,9 +5,9 @@ course_content <-
     "13:20 - 13:30", "Exercise 1",
     "13:30 - 13:45", "Data Import",
     "13:45 - 14:00", "Exercise 2",
-    "14:00 - 14:15", "<i>Coffee break</i>",
-    "14:15 - 14:45", "Data Wrangling - Part 1",
-    "14:45 - 15:00", "Exercise 3",   
+    "14:00 - 14:30", "Data Wrangling - Part 1",
+    "14:30 - 14:45", "Exercise 3",   
+    "14:45 - 15:00", "<i>Coffee break</i>",
     "15:00 - 15:30", "Data Wrangling - Part 2",
     "15:30 - 15:45", "Exercise 4",
     "15:45 - 16:00", "Wrap-Up"

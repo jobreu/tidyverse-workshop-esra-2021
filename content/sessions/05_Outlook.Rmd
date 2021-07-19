@@ -48,18 +48,7 @@ xaringanExtra::use_extra_styles(
 ## Course recap
 
 ```{r recap 1, echo = F}
-tribble(
-  ~"Session", ~"Example content", 
-  "Introduction", "What is the tidyverse?, %>% & tibbles ",
-  "Data import", "Importing CSV, SPSS, and Stata files",
-  "Data wrangling 1", "Renaming, recoding, & selecting variables; filtering cases",
-  "Data wrangling 2", "Transforming variables & grouping cases", 
-) %>% 
-kable(
-    format = "html"
-  , align = "ll"
-  , escape = FALSE
-)
+course_content
 ```
 
 ---
