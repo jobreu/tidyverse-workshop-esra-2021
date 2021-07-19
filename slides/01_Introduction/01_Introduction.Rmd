@@ -287,12 +287,80 @@ Source: https://github.com/gadenbuie/tidyexplain#tidy-data
 
 ---
 
+## Tibbles all the way
+
+Tibbles are basically just `R data.frames` but nicer.
+- only the first ten observations are printed
+  - output is tidier!
+- you get some additonal metadata about rows and columns you'd usually only get when, e.g., using `dim()` and other functions
+
+Please refer to this [vignette](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) for the technical details.
+
+---
+
+## `tibble()` vs. `data.frame()`
+
+.pull-left[
+```{r data-frame}
+gpc <-
+  read.csv(
+    "../../data/ZA5667_v1-0-0_Stata14_synthetic-data.csv"
+  )
+
+gpc
+```
+
+]
+
+.pull-right[
+```{r tibble}
+gpc <-
+  readr::read_csv(
+   "../../data/ZA5667_v1-0-0_Stata14_synthetic-data.csv"
+  )
+
+gpc
+```
+
+]
+
+---
+
 ## Pipes everywhere...
 
-```{r pipe meme}
+```{r pipe meme, echo = FALSE}
 meme_get("OprahGiveaway") %>% 
   meme_text_bottom("EVERYONE GETS A %>%!!!", size = 36)
 ```
+
+---
+
+## The Logic of Pipes
+
+Usually, in `R` we apply functions as follows:
+
+```{r function-r, echo = TRUE, eval = FALSE}
+f(x)
+```
+
+In the logic of pipes this function is written as:
+
+```{r function-pipe, echo = TRUE, eval = FALSE}
+x %>% f(.)
+```
+
+--
+
+We can use pipes on more than one function:
+
+```{r function-pipe-2, echo = TRUE, eval = FALSE}
+x %>% 
+  f_1() %>% 
+  f_2() %>% 
+  f_3()
+```
+
+More details: https://r4ds.had.co.nz/pipes.html
 
 ---
 

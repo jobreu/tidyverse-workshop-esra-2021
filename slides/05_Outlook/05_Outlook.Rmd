@@ -104,6 +104,16 @@ Some examples:
 
 ---
 
+##
+
+
+---
+
+## The 'dark side' of the `tidyverse`
+
+
+---
+
 ## Acknowledgements `r ji("heart")`
 
 All slides were created with the `R` package [`xaringan`](https://github.com/yihui/xaringan) which builds on [`remark.js`](https://remarkjs.com), [`knitr`](http://yihui.name/knitr), and [`RMarkdown`](https://rmarkdown.rstudio.com). The exercises were created with the [`unilur` package](https://github.com/koncina/unilur).  
