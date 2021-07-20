@@ -76,19 +76,28 @@ xaringanExtra::use_extra_styles(
 
 ### Stefan Jünger
 
-- postdoctoal researcher in the team Data Linking & Data Security at the GESIS Data Archive
-    - main area: geospatial data/georeferencing  
-    
+.pull-left[
+```{r me-pic, echo = FALSE, out.width = "50%"}
+knitr::include_graphics(normalizePath("./content/img/stefan.png"))
+```
+]
+
+.pull-right[
+- Postdoctoral researcher in the team Data Augmentation at the GESIS department Survey Data Curation
 - Ph.D. in social sciences, University of Cologne
+]
 
-- previously worked in the area of data ingest and as a curator of the data repository datorium and two DFG research projects on geospatial data
+- Research interests:
+  - quantitative methods & Geographic Information Systems (GIS)
+  - social inequalities & attitudes towards minorities
+  - data management & data privacy
+  - reproducible research
 
-- other research interests:
-    - quantitative methods
-    - social inequalities & attitudes towards minorities
-    - data management & data privacy
-
-[stefan.juenger@gesis.org](mailto:stefan.juenger@gesis.org), [@StefanJuenger](https://twitter.com/StefanJuenger), [personal website](https://stefanjuenger.github.io/)
+.small[
+[stefan.juenger@gesis.org](mailto:stefan.juenger@gesis.org) |
+[@StefanJuenger](https://twitter.com/StefanJuenger) |
+[https://stefanjuenger.github.io](https://stefanjuenger.github.io)
+]
 
 ---
 
@@ -266,7 +275,10 @@ The 3 rules of tidy data:
 
 3. Each **value** is in a separate **cell**.
 
-<img src="pics/tidy_data.png" width="100%">
+
+```{r tidy-data}
+knitr::include_graphics(normalizePath("./content/img/tidy_data.png"))
+```
 Source: https://r4ds.had.co.nz/tidy-data.html
 
 *NB*: In the `tidyverse` terminology 'tidy data' usually also means data in long format (where applicable). 
@@ -354,9 +366,13 @@ tibble::as_tibble(gpc)
 
 ## Pipes everywhere...
 
-```{r pipe meme, echo = FALSE}
+```{r pipe meme, echo = FALSE, eval = FALSE}
 meme_get("OprahGiveaway") %>% 
   meme_text_bottom("EVERYONE GETS A %>%!!!", size = 36)
+```
+
+```{r pipe-meme-include, echo = FALSE}
+knitr::include_graphics(normalizePath("./content/img/OprahGiveaway.png"))
 ```
 
 ---
