@@ -103,12 +103,12 @@ if(file.exists(glue::glue(exercises_home, "exercises_list.csv"))) {
 # Create list of current files in folder
 exercises_list_current <-
   tibble::tibble(
-    session_name = 
+    excercise_name = 
       list.files(exercises_home, recursive = FALSE) %>%
       .[stringr::str_detect(., "Rmd")]
   ) %>% 
   dplyr::mutate(
-    current = tools::md5sum(paste0(exercises_home, session_name))
+    current = tools::md5sum(paste0(exercises_home, excercise_name))
   )
 
 # join lists and update existing one if it exists; otherwise create it
@@ -132,7 +132,7 @@ if (file.exists(glue::glue(exercises_home, "exercises_list.csv"))) {
     exercises_list_current %>% 
     dplyr::mutate(previous = current) %>% 
     dplyr::select(
-      session_name, previous, current
+      excercise_name, previous, current
     )
   
   readr::write_csv(
