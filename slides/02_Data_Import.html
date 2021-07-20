@@ -492,7 +492,7 @@ window.xaringanExtraClipboard = function (selector, text) {
 class: center, middle, inverse, title-slide
 
 # Introduction to Survey Data Cleaning Using Tidyverse in R
-## Importing Data
+## Data Import
 ### Johannes Breuer<br />Stefan Jünger
 ### 2021-07-22
 
@@ -505,7 +505,7 @@ layout: true
 &lt;div class=&quot;my-footer&quot;&gt;
 &lt;div style=&quot;float: left;&quot;&gt;&lt;span&gt;Johannes Breuer, Stefan Jünger&lt;/span&gt;&lt;/div&gt;
 &lt;div style=&quot;float: right;&quot;&gt;&lt;span&gt;ESRA 2021, 2021-07-22&lt;/span&gt;&lt;/div&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span&gt;Importing Data&lt;/span&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span&gt;Data Import&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 ---
@@ -550,7 +550,7 @@ gpc_csv &lt;-
 
 ```
 ## 
-## -- Column specification ----------------------------------------------------------------
+## -- Column specification -------------------------------------------------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   .default = col_double()
 ## )
@@ -573,39 +573,28 @@ gpc_csv
 
 ```
 ## # A tibble: 3,765 x 111
-##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orien~
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1      2     1      10             3                 2              98                7
-##  2      1     2       2             3                 2               5                3
-##  3      1     1       8             1                 2               2                7
-##  4      2     2       1             3                 2              98                1
-##  5      3     2       7             3                 2               5                2
-##  6      2     2       7             2                 2               1                2
-##  7      1     2       7             3                 2               5                3
-##  8      2     1       7             3                NA              NA                3
-##  9      2     2       8             3                 2              98                3
-## 10      2     2       6             2                NA              98                5
-## # ... with 3,755 more rows, and 104 more variables: marstat &lt;dbl&gt;, household &lt;dbl&gt;,
-## #   hzcy001a &lt;dbl&gt;, hzcy002a &lt;dbl&gt;, hzcy003a &lt;dbl&gt;, hzcy004a &lt;dbl&gt;, hzcy005a &lt;dbl&gt;,
-## #   hzcy006a &lt;dbl&gt;, hzcy007a &lt;dbl&gt;, hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;,
-## #   hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;, hzcy015a &lt;dbl&gt;,
-## #   hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;,
-## #   hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;, hzcy026a &lt;dbl&gt;,
-## #   hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;,
-## #   hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;, hzcy036a &lt;dbl&gt;,
-## #   hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;,
-## #   hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;, hzcy046a &lt;dbl&gt;,
-## #   hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;,
-## #   hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;, hzcy056a &lt;dbl&gt;,
-## #   hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;,
-## #   hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;, hzcy066a &lt;dbl&gt;,
-## #   hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;,
-## #   hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;, hzcy076a &lt;dbl&gt;,
-## #   hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;,
-## #   hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;, hzcy087a &lt;dbl&gt;,
-## #   hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;,
-## #   hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;, hzcy098a &lt;dbl&gt;,
-## #   hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, ...
+##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orientation marstat household hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a hzcy006a hzcy007a
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1      2     1      10             3                 2              98                     7       1         2        4        6        3        6        4        1        1
+##  2      1     2       2             3                 2               5                     3       2         2        4        6        6        6        4        1        1
+##  3      1     1       8             1                 2               2                     7       1         2        2        2        2        2        2        1        1
+##  4      2     2       1             3                 2              98                     1       2         3       NA       NA       NA       NA       NA       NA       NA
+##  5      3     2       7             3                 2               5                     2       2         2        6        6        4        6        6        1        0
+##  6      2     2       7             2                 2               1                     2       1         2        4        4        3        4        4        1        1
+##  7      1     2       7             3                 2               5                     3       1         1        4        4        3        4        4        1        1
+##  8      2     1       7             3                NA              NA                     3       1         3       NA       NA       NA       NA       NA       NA       NA
+##  9      2     2       8             3                 2              98                     3       1         2       NA       NA       NA       NA       NA       NA       NA
+## 10      2     2       6             2                NA              98                     5       1         2        4        6        3        6        7        1        0
+## # ... with 3,755 more rows, and 95 more variables: hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;, hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;,
+## #   hzcy015a &lt;dbl&gt;, hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;, hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;,
+## #   hzcy026a &lt;dbl&gt;, hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;, hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;,
+## #   hzcy036a &lt;dbl&gt;, hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;, hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;,
+## #   hzcy046a &lt;dbl&gt;, hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;, hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;,
+## #   hzcy056a &lt;dbl&gt;, hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;, hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;,
+## #   hzcy066a &lt;dbl&gt;, hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;, hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;,
+## #   hzcy076a &lt;dbl&gt;, hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;, hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;,
+## #   hzcy087a &lt;dbl&gt;, hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;, hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;,
+## #   hzcy098a &lt;dbl&gt;, hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, hzzq023a &lt;dbl&gt;, hzzp201a &lt;dbl&gt;, hzzp204a &lt;dbl&gt;, hzzp207a &lt;dbl&gt;
 ```
 ]
 
@@ -636,39 +625,28 @@ gpc_xlsx
 
 ```
 ## # A tibble: 3,765 x 111
-##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orien~
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1      2     1      10             3                 2              98                7
-##  2      1     2       2             3                 2               5                3
-##  3      1     1       8             1                 2               2                7
-##  4      2     2       1             3                 2              98                1
-##  5      3     2       7             3                 2               5                2
-##  6      2     2       7             2                 2               1                2
-##  7      1     2       7             3                 2               5                3
-##  8      2     1       7             3                NA              NA                3
-##  9      2     2       8             3                 2              98                3
-## 10      2     2       6             2                NA              98                5
-## # ... with 3,755 more rows, and 104 more variables: marstat &lt;dbl&gt;, household &lt;dbl&gt;,
-## #   hzcy001a &lt;dbl&gt;, hzcy002a &lt;dbl&gt;, hzcy003a &lt;dbl&gt;, hzcy004a &lt;dbl&gt;, hzcy005a &lt;dbl&gt;,
-## #   hzcy006a &lt;dbl&gt;, hzcy007a &lt;dbl&gt;, hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;,
-## #   hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;, hzcy015a &lt;dbl&gt;,
-## #   hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;,
-## #   hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;, hzcy026a &lt;dbl&gt;,
-## #   hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;,
-## #   hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;, hzcy036a &lt;dbl&gt;,
-## #   hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;,
-## #   hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;, hzcy046a &lt;dbl&gt;,
-## #   hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;,
-## #   hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;, hzcy056a &lt;dbl&gt;,
-## #   hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;,
-## #   hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;, hzcy066a &lt;dbl&gt;,
-## #   hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;,
-## #   hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;, hzcy076a &lt;dbl&gt;,
-## #   hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;,
-## #   hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;, hzcy087a &lt;dbl&gt;,
-## #   hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;,
-## #   hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;, hzcy098a &lt;dbl&gt;,
-## #   hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, ...
+##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orientation marstat household hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a hzcy006a hzcy007a
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1      2     1      10             3                 2              98                     7       1         2        4        6        3        6        4        1        1
+##  2      1     2       2             3                 2               5                     3       2         2        4        6        6        6        4        1        1
+##  3      1     1       8             1                 2               2                     7       1         2        2        2        2        2        2        1        1
+##  4      2     2       1             3                 2              98                     1       2         3       NA       NA       NA       NA       NA       NA       NA
+##  5      3     2       7             3                 2               5                     2       2         2        6        6        4        6        6        1        0
+##  6      2     2       7             2                 2               1                     2       1         2        4        4        3        4        4        1        1
+##  7      1     2       7             3                 2               5                     3       1         1        4        4        3        4        4        1        1
+##  8      2     1       7             3                NA              NA                     3       1         3       NA       NA       NA       NA       NA       NA       NA
+##  9      2     2       8             3                 2              98                     3       1         2       NA       NA       NA       NA       NA       NA       NA
+## 10      2     2       6             2                NA              98                     5       1         2        4        6        3        6        7        1        0
+## # ... with 3,755 more rows, and 95 more variables: hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;, hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;,
+## #   hzcy015a &lt;dbl&gt;, hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;, hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;,
+## #   hzcy026a &lt;dbl&gt;, hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;, hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;,
+## #   hzcy036a &lt;dbl&gt;, hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;, hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;,
+## #   hzcy046a &lt;dbl&gt;, hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;, hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;,
+## #   hzcy056a &lt;dbl&gt;, hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;, hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;,
+## #   hzcy066a &lt;dbl&gt;, hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;, hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;,
+## #   hzcy076a &lt;dbl&gt;, hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;, hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;,
+## #   hzcy087a &lt;dbl&gt;, hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;, hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;,
+## #   hzcy098a &lt;dbl&gt;, hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, hzzq023a &lt;dbl&gt;, hzzp201a &lt;dbl&gt;, hzzp204a &lt;dbl&gt;, hzzp207a &lt;dbl&gt;
 ```
 ]
 
@@ -697,39 +675,28 @@ gpc_dta
 
 ```
 ## # A tibble: 3,765 x 111
-##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orien~
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1      2     1      10             3                 2              98                7
-##  2      1     2       2             3                 2               5                3
-##  3      1     1       8             1                 2               2                7
-##  4      2     2       1             3                 2              98                1
-##  5      3     2       7             3                 2               5                2
-##  6      2     2       7             2                 2               1                2
-##  7      1     2       7             3                 2               5                3
-##  8      2     1       7             3                NA              NA                3
-##  9      2     2       8             3                 2              98                3
-## 10      2     2       6             2                NA              98                5
-## # ... with 3,755 more rows, and 104 more variables: marstat &lt;dbl&gt;, household &lt;dbl&gt;,
-## #   hzcy001a &lt;dbl&gt;, hzcy002a &lt;dbl&gt;, hzcy003a &lt;dbl&gt;, hzcy004a &lt;dbl&gt;, hzcy005a &lt;dbl&gt;,
-## #   hzcy006a &lt;dbl&gt;, hzcy007a &lt;dbl&gt;, hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;,
-## #   hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;, hzcy015a &lt;dbl&gt;,
-## #   hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;,
-## #   hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;, hzcy026a &lt;dbl&gt;,
-## #   hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;,
-## #   hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;, hzcy036a &lt;dbl&gt;,
-## #   hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;,
-## #   hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;, hzcy046a &lt;dbl&gt;,
-## #   hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;,
-## #   hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;, hzcy056a &lt;dbl&gt;,
-## #   hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;,
-## #   hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;, hzcy066a &lt;dbl&gt;,
-## #   hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;,
-## #   hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;, hzcy076a &lt;dbl&gt;,
-## #   hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;,
-## #   hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;, hzcy087a &lt;dbl&gt;,
-## #   hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;,
-## #   hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;, hzcy098a &lt;dbl&gt;,
-## #   hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, ...
+##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orientation marstat household hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a hzcy006a hzcy007a
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1      2     1      10             3                 2              98                     7       1         2        4        6        3        6        4        1        1
+##  2      1     2       2             3                 2               5                     3       2         2        4        6        6        6        4        1        1
+##  3      1     1       8             1                 2               2                     7       1         2        2        2        2        2        2        1        1
+##  4      2     2       1             3                 2              98                     1       2         3       NA       NA       NA       NA       NA       NA       NA
+##  5      3     2       7             3                 2               5                     2       2         2        6        6        4        6        6        1        0
+##  6      2     2       7             2                 2               1                     2       1         2        4        4        3        4        4        1        1
+##  7      1     2       7             3                 2               5                     3       1         1        4        4        3        4        4        1        1
+##  8      2     1       7             3                NA              NA                     3       1         3       NA       NA       NA       NA       NA       NA       NA
+##  9      2     2       8             3                 2              98                     3       1         2       NA       NA       NA       NA       NA       NA       NA
+## 10      2     2       6             2                NA              98                     5       1         2        4        6        3        6        7        1        0
+## # ... with 3,755 more rows, and 95 more variables: hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;, hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;,
+## #   hzcy015a &lt;dbl&gt;, hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;, hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;,
+## #   hzcy026a &lt;dbl&gt;, hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;, hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;,
+## #   hzcy036a &lt;dbl&gt;, hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;, hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;,
+## #   hzcy046a &lt;dbl&gt;, hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;, hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;,
+## #   hzcy056a &lt;dbl&gt;, hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;, hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;,
+## #   hzcy066a &lt;dbl&gt;, hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;, hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;,
+## #   hzcy076a &lt;dbl&gt;, hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;, hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;,
+## #   hzcy087a &lt;dbl&gt;, hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;, hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;,
+## #   hzcy098a &lt;dbl&gt;, hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, hzzq023a &lt;dbl&gt;, hzzp201a &lt;dbl&gt;, hzzp204a &lt;dbl&gt;, hzzp207a &lt;dbl&gt;
 ```
 ]
 
@@ -749,39 +716,28 @@ gpc_csv  ...  pc_xlsx  ...  gpc_dta
 
 ```
 ## # A tibble: 3,765 x 111
-##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orien~
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1      2     1      10             3                 2              98                7
-##  2      1     2       2             3                 2               5                3
-##  3      1     1       8             1                 2               2                7
-##  4      2     2       1             3                 2              98                1
-##  5      3     2       7             3                 2               5                2
-##  6      2     2       7             2                 2               1                2
-##  7      1     2       7             3                 2               5                3
-##  8      2     1       7             3                NA              NA                3
-##  9      2     2       8             3                 2              98                3
-## 10      2     2       6             2                NA              98                5
-## # ... with 3,755 more rows, and 104 more variables: marstat &lt;dbl&gt;, household &lt;dbl&gt;,
-## #   hzcy001a &lt;dbl&gt;, hzcy002a &lt;dbl&gt;, hzcy003a &lt;dbl&gt;, hzcy004a &lt;dbl&gt;, hzcy005a &lt;dbl&gt;,
-## #   hzcy006a &lt;dbl&gt;, hzcy007a &lt;dbl&gt;, hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;,
-## #   hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;, hzcy015a &lt;dbl&gt;,
-## #   hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;,
-## #   hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;, hzcy026a &lt;dbl&gt;,
-## #   hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;,
-## #   hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;, hzcy036a &lt;dbl&gt;,
-## #   hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;,
-## #   hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;, hzcy046a &lt;dbl&gt;,
-## #   hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;,
-## #   hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;, hzcy056a &lt;dbl&gt;,
-## #   hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;,
-## #   hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;, hzcy066a &lt;dbl&gt;,
-## #   hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;,
-## #   hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;, hzcy076a &lt;dbl&gt;,
-## #   hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;,
-## #   hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;, hzcy087a &lt;dbl&gt;,
-## #   hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;,
-## #   hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;, hzcy098a &lt;dbl&gt;,
-## #   hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, ...
+##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orientation marstat household hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a hzcy006a hzcy007a
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1      2     1      10             3                 2              98                     7       1         2        4        6        3        6        4        1        1
+##  2      1     2       2             3                 2               5                     3       2         2        4        6        6        6        4        1        1
+##  3      1     1       8             1                 2               2                     7       1         2        2        2        2        2        2        1        1
+##  4      2     2       1             3                 2              98                     1       2         3       NA       NA       NA       NA       NA       NA       NA
+##  5      3     2       7             3                 2               5                     2       2         2        6        6        4        6        6        1        0
+##  6      2     2       7             2                 2               1                     2       1         2        4        4        3        4        4        1        1
+##  7      1     2       7             3                 2               5                     3       1         1        4        4        3        4        4        1        1
+##  8      2     1       7             3                NA              NA                     3       1         3       NA       NA       NA       NA       NA       NA       NA
+##  9      2     2       8             3                 2              98                     3       1         2       NA       NA       NA       NA       NA       NA       NA
+## 10      2     2       6             2                NA              98                     5       1         2        4        6        3        6        7        1        0
+## # ... with 3,755 more rows, and 95 more variables: hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;, hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;,
+## #   hzcy015a &lt;dbl&gt;, hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;, hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;,
+## #   hzcy026a &lt;dbl&gt;, hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;, hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;,
+## #   hzcy036a &lt;dbl&gt;, hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;, hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;,
+## #   hzcy046a &lt;dbl&gt;, hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;, hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;,
+## #   hzcy056a &lt;dbl&gt;, hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;, hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;,
+## #   hzcy066a &lt;dbl&gt;, hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;, hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;,
+## #   hzcy076a &lt;dbl&gt;, hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;, hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;,
+## #   hzcy087a &lt;dbl&gt;, hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;, hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;,
+## #   hzcy098a &lt;dbl&gt;, hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, hzzq023a &lt;dbl&gt;, hzzp201a &lt;dbl&gt;, hzzp204a &lt;dbl&gt;, hzzp207a &lt;dbl&gt;
 ```
 ]
 ]
@@ -863,12 +819,9 @@ list.files()
 ```
 
 ```
-##  [1] &quot;01_Introduction_files&quot;              &quot;content&quot;                           
-##  [3] &quot;data&quot;                               &quot;exercises&quot;                         
-##  [5] &quot;gpc_own.csv&quot;                        &quot;gpc_own.dta&quot;                       
-##  [7] &quot;MY_CODE&quot;                            &quot;old_materials_2019&quot;                
-##  [9] &quot;README.md&quot;                          &quot;slides&quot;                            
-## [11] &quot;solutions&quot;                          &quot;tidyverse-workshop-esra-2021.Rproj&quot;
+##  [1] &quot;01_Introduction_files&quot;              &quot;content&quot;                            &quot;data&quot;                               &quot;exercises&quot;                         
+##  [5] &quot;gpc_own.csv&quot;                        &quot;gpc_own.dta&quot;                        &quot;MY_CODE&quot;                            &quot;README.md&quot;                         
+##  [9] &quot;slides&quot;                             &quot;solutions&quot;                          &quot;tidyverse-workshop-esra-2021.Rproj&quot; &quot;to_delete&quot;
 ```
 
 
@@ -943,39 +896,28 @@ gpc
 
 ```
 ## # A tibble: 3,765 x 111
-##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orien~
-##     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1      2     1 10                  3                 2              98                7
-##  2      1     2 2                   3                 2               5                3
-##  3      1     1 8                   1                 2               2                7
-##  4      2     2 1                   3                 2              98                1
-##  5      3     2 7                   3                 2               5                2
-##  6      2     2 7                   2                 2               1                2
-##  7      1     2 7                   3                 2               5                3
-##  8      2     1 7                   3                NA              NA                3
-##  9      2     2 8                   3                 2              98                3
-## 10      2     2 6                   2                NA              98                5
-## # ... with 3,755 more rows, and 104 more variables: marstat &lt;dbl&gt;, household &lt;dbl&gt;,
-## #   hzcy001a &lt;dbl&gt;, hzcy002a &lt;dbl&gt;, hzcy003a &lt;dbl&gt;, hzcy004a &lt;dbl&gt;, hzcy005a &lt;dbl&gt;,
-## #   hzcy006a &lt;dbl&gt;, hzcy007a &lt;dbl&gt;, hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;,
-## #   hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;, hzcy015a &lt;dbl&gt;,
-## #   hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;,
-## #   hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;, hzcy026a &lt;dbl&gt;,
-## #   hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;,
-## #   hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;, hzcy036a &lt;dbl&gt;,
-## #   hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;,
-## #   hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;, hzcy046a &lt;dbl&gt;,
-## #   hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;,
-## #   hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;, hzcy056a &lt;dbl&gt;,
-## #   hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;,
-## #   hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;, hzcy066a &lt;dbl&gt;,
-## #   hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;,
-## #   hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;, hzcy076a &lt;dbl&gt;,
-## #   hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;,
-## #   hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;, hzcy087a &lt;dbl&gt;,
-## #   hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;,
-## #   hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;, hzcy098a &lt;dbl&gt;,
-## #   hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, ...
+##    cohort   sex age_cat education_cat intention_to_vote choice_of_party political_orientation marstat household hzcy001a hzcy002a hzcy003a hzcy004a hzcy005a hzcy006a hzcy007a
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;             &lt;dbl&gt;           &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1      2     1 10                  3                 2              98                     7       1         2        4        6        3        6        4        1        1
+##  2      1     2 2                   3                 2               5                     3       2         2        4        6        6        6        4        1        1
+##  3      1     1 8                   1                 2               2                     7       1         2        2        2        2        2        2        1        1
+##  4      2     2 1                   3                 2              98                     1       2         3       NA       NA       NA       NA       NA       NA       NA
+##  5      3     2 7                   3                 2               5                     2       2         2        6        6        4        6        6        1        0
+##  6      2     2 7                   2                 2               1                     2       1         2        4        4        3        4        4        1        1
+##  7      1     2 7                   3                 2               5                     3       1         1        4        4        3        4        4        1        1
+##  8      2     1 7                   3                NA              NA                     3       1         3       NA       NA       NA       NA       NA       NA       NA
+##  9      2     2 8                   3                 2              98                     3       1         2       NA       NA       NA       NA       NA       NA       NA
+## 10      2     2 6                   2                NA              98                     5       1         2        4        6        3        6        7        1        0
+## # ... with 3,755 more rows, and 95 more variables: hzcy008a &lt;dbl&gt;, hzcy009a &lt;dbl&gt;, hzcy010a &lt;dbl&gt;, hzcy011a &lt;dbl&gt;, hzcy012a &lt;dbl&gt;, hzcy013a &lt;dbl&gt;, hzcy014a &lt;dbl&gt;,
+## #   hzcy015a &lt;dbl&gt;, hzcy016a &lt;dbl&gt;, hzcy018a &lt;dbl&gt;, hzcy019a &lt;dbl&gt;, hzcy020a &lt;dbl&gt;, hzcy021a &lt;dbl&gt;, hzcy022a &lt;dbl&gt;, hzcy023a &lt;dbl&gt;, hzcy024a &lt;dbl&gt;, hzcy025a &lt;dbl&gt;,
+## #   hzcy026a &lt;dbl&gt;, hzcy027a &lt;dbl&gt;, hzcy028a &lt;dbl&gt;, hzcy029a &lt;dbl&gt;, hzcy030a &lt;dbl&gt;, hzcy031a &lt;dbl&gt;, hzcy032a &lt;dbl&gt;, hzcy033a &lt;dbl&gt;, hzcy034a &lt;dbl&gt;, hzcy035a &lt;dbl&gt;,
+## #   hzcy036a &lt;dbl&gt;, hzcy037a &lt;dbl&gt;, hzcy038a &lt;dbl&gt;, hzcy039a &lt;dbl&gt;, hzcy040a &lt;dbl&gt;, hzcy041a &lt;dbl&gt;, hzcy042a &lt;dbl&gt;, hzcy043a &lt;dbl&gt;, hzcy044a &lt;dbl&gt;, hzcy045a &lt;dbl&gt;,
+## #   hzcy046a &lt;dbl&gt;, hzcy047a &lt;dbl&gt;, hzcy048a &lt;dbl&gt;, hzcy049a &lt;dbl&gt;, hzcy050a &lt;dbl&gt;, hzcy051a &lt;dbl&gt;, hzcy052a &lt;dbl&gt;, hzcy053a &lt;dbl&gt;, hzcy054a &lt;dbl&gt;, hzcy055a &lt;dbl&gt;,
+## #   hzcy056a &lt;dbl&gt;, hzcy057a &lt;dbl&gt;, hzcy058a &lt;dbl&gt;, hzcy059a &lt;dbl&gt;, hzcy060a &lt;dbl&gt;, hzcy061a &lt;dbl&gt;, hzcy062a &lt;dbl&gt;, hzcy063a &lt;dbl&gt;, hzcy064a &lt;dbl&gt;, hzcy065a &lt;dbl&gt;,
+## #   hzcy066a &lt;dbl&gt;, hzcy067a &lt;dbl&gt;, hzcy068a &lt;dbl&gt;, hzcy069a &lt;dbl&gt;, hzcy070a &lt;dbl&gt;, hzcy071a &lt;dbl&gt;, hzcy072a &lt;dbl&gt;, hzcy073a &lt;dbl&gt;, hzcy074a &lt;dbl&gt;, hzcy075a &lt;dbl&gt;,
+## #   hzcy076a &lt;dbl&gt;, hzcy077a &lt;dbl&gt;, hzcy078a &lt;dbl&gt;, hzcy079a &lt;dbl&gt;, hzcy080a &lt;dbl&gt;, hzcy081a &lt;dbl&gt;, hzcy083a &lt;dbl&gt;, hzcy084a &lt;dbl&gt;, hzcy085a &lt;dbl&gt;, hzcy086a &lt;dbl&gt;,
+## #   hzcy087a &lt;dbl&gt;, hzcy088a &lt;dbl&gt;, hzcy089a &lt;dbl&gt;, hzcy090a &lt;dbl&gt;, hzcy091a &lt;dbl&gt;, hzcy092a &lt;dbl&gt;, hzcy093a &lt;dbl&gt;, hzcy095a &lt;dbl&gt;, hzcy096a &lt;dbl&gt;, hzcy097a &lt;dbl&gt;,
+## #   hzcy098a &lt;dbl&gt;, hzcy099a &lt;dbl&gt;, hzza003a &lt;dbl&gt;, hzzq009a &lt;dbl&gt;, hzzq023a &lt;dbl&gt;, hzzp201a &lt;dbl&gt;, hzzp204a &lt;dbl&gt;, hzzp207a &lt;dbl&gt;
 ```
 
 ---

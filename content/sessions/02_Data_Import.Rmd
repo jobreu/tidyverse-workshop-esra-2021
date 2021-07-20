@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Survey Data Cleaning Using Tidyverse in R"
-subtitle: "Importing Data"
+subtitle: "Data Import"
 author: "Johannes Breuer<br />Stefan Jünger"
 date: "2021-07-22"
 location: "ESRA 2021"
