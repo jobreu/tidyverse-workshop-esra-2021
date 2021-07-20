@@ -191,9 +191,13 @@ Most of the things we are going to show you can also be achieved with base `R`. 
 
 ## `tidyverse` for `R` beginners
 
-```{r tidy meme}
+```{r tidy meme, eval = FALSE}
 meme_get("DistractedBf") %>% 
   meme_text_distbf("tidyverse", "new R users", "base R")
+```
+
+```{r tidy meme print, echo = FALSE, out.width="60%"}
+knitr::include_graphics(normalizePath("./content/img/DistractedBf.png"))
 ```
 
 ---
@@ -276,7 +280,7 @@ The 3 rules of tidy data:
 3. Each **value** is in a separate **cell**.
 
 
-```{r tidy-data}
+```{r tidy-data, echo = FALSE}
 knitr::include_graphics(normalizePath("./content/img/tidy_data.png"))
 ```
 Source: https://r4ds.had.co.nz/tidy-data.html
@@ -305,19 +309,7 @@ Please refer to this [vignette](https://cran.r-project.org/web/packages/tibble/v
 
 ---
 
-## `tibble()` vs. `data.frame()`
-
-.pull-left[
-```{r data-frame, eval = FALSE}
-gpc <-
-  read.csv(
-    "./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv"
-  )
-
-gpc
-```
-
-.tinylicious[
+.tiny[
 ```{r data-frame-print, echo = FALSE}
 gpc <-
   read.csv(
@@ -328,19 +320,12 @@ gpc
 ```
 ]
 
-]
 
-.pull-right[
-```{r tibble, eval = FALSE}
-gpc <-
-  readr::read_csv(
-   "./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv"
-  )
+---
 
-gpc
-```
+class: middle
 
-.tinylicious[
+.tiny[
 ```{r tibble-print, echo = FALSE}
 gpc <-
   readr::read_csv(
@@ -350,17 +335,26 @@ gpc <-
 gpc
 ```
 ]
-]
+
+---
 
 ## Converting data into tibbles
 
 We can also convert any `data.frame` into a `tibble`:
 
-```{r tibble-convert}
+```{r tibble-convert, eval = FALSE}
 gpc <- as.data.frame(gpc)
 
 tibble::as_tibble(gpc)
 ```
+
+.tiny[
+```{r tibble-convert-print, echo = FALSE}
+gpc <- as.data.frame(gpc)
+
+tibble::as_tibble(gpc)
+```
+]
 
 ---
 
