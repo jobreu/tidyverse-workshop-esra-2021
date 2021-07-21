@@ -1,0 +1,449 @@
+---
+title: "Introduction to Survey Data Cleaning Using Tidyverse in R"
+subtitle: "Data Wrangling - Part 1"
+author: "Johannes Breuer<br />Stefan Jünger"
+date: "2021-07-22"
+location: "ESRA 2021"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: libs
+    css: ["default", "default-fonts", "../assets/workshop.css"]
+    nature:
+      highlightStyle: "github"
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+
+```{r setup, include = FALSE}
+# load all packages
+source("./content/R/load_packages.R")
+
+# load custom functions
+source("./content/R/helper_functions.R")
+
+options(htmltools.dir.version = FALSE,
+        htmltools.preserve.raw = FALSE)
+
+opts_chunk$set(echo = TRUE, fig.align = "center", message = FALSE)
+
+# load course content table
+source("./content/R/course_content.R")
+
+options(warn = -1)
+
+xaringanExtra::use_xaringan_extra(c("tile_view", "clipboard"))
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         
+  mute_unhighlighted_code = FALSE  
+)
+```
+
+<div class="my-footer">
+  <div style="float: left;"><span>`r gsub("<br />", ", ", gsub("<br /><br />|<a.+$", "", rmarkdown::metadata$author))`</span></div>
+  <div style="float: right;"><span>`r rmarkdown::metadata$location`, `r rmarkdown::metadata$date`</span></div>
+  <div style="text-align: center;"><span>`r gsub(".+<br />", " ", rmarkdown::metadata$subtitle)`</span></div>
+</div>
+
+---
+
+## Data wrangling `r ji("cowboy_hat_face")`
+
+```{r, wrangling-cartoon, out.width = "95%", echo = F}
+include_picture("data_cowboy.png")
+```
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
+
+---
+
+## What is data wrangling?
+
+Data wrangling is the process of "getting the data into shape", so that you can then explore and analyze them.
+
+Common data wrangling steps when working with survey data include:
+- **renaming** variables
+- **recoding** variables/values
+- **creating/computing** new variables
+- **selecting** a subset of variables
+- **filtering** a subset of cases
+
+--
+
+The (in)famous **80/20-rule**: 80% wrangling, 20% analysis<sup>1</sup> 
+
+.footnote[
+[1] Of course, this ratio relates to the time the working time of the analyst, not computing time.
+]
+
+---
+
+## Data wrangling
+
+Simply put, data wrangling means...
+
+```{r, eval = F}
+wrangled_data <- original_data %>% 
+  do_something()
+```
+
+This is where the `dplyr` package come in.
+
+```{r dplyr hex, echo = F, out.width = "25%"}
+include_picture("dplyr.png")
+```
+
+---
+
+## `dplyr` functions
+
+- `dplyr` functions are verbs that signal an action  
+
+- first argument = a data frame  
+
+- output normally also a data frame (tibble) 
+
+- columns (= variables in a tidy data frame) can be referenced without quotation marks (non-standard evaluation)
+
+- actions (verbs) can be applied to columns (variables) and rows (cases/observations)
+
+---
+
+## Load the data
+
+Before we can wrangle the data, we need to load it. We will work with the `csv` version of the data. To better understand what we are doing, it is helpful to consult the [codebook](https://dbk.gesis.org/dbksearch/download.asp?id=67378) for the original data that this synthetic data set is based on. For understanding the naming scheme for the variables it also helps to have a look at the [*GESIS Panel* cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf).
+
+.small[
+```{r load data}
+gpc <- read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+```
+]
+
+**NB**: This command uses a relative path that assumes that the working directory is the folder containing these slides. In the course repository/folder, the data set is two levels up (`../../`) from the folder containing these slides in the `data` folder.
+
+---
+
+## Note: Tidy vs. untidy data
+
+As a lot of work (by many people) has already gone into the data that these synthetic data set is based on set, data are already tidy. If you collect data yourself, this may not be the case (at least for the raw data). For example, cells may hold more than one value or a variable that should be in one column is spread across multiple columns (e.g., parts of a date or name).
+
+If you need to make your data tidy or change it from wide to long format or vice versa (which may, e.g., be necessary if you work with longitudinal survey data from multiple waves), the [`tidyr` package](https://tidyr.tidyverse.org/) from the `tidyverse` is a good option.
+
+---
+
+## Selecting variables
+
+We might want to reduce our data frame (or create a new one) to only include a subset of specific variables. This can be done with the `dplyr` verb `select`.
+
+```{r select}
+gpc_risk <- gpc %>% 
+  select(hzcy001a,
+         hzcy002a,
+         hzcy003a,
+         hzcy004a,
+         hzcy005a)
+
+head(gpc_risk)
+```
+
+---
+
+## Selecting variables
+
+There also is a shorthand notation for selecting a set of consecutive columns with `select()`.
+
+```{r select-range}
+gpc_risk <- gpc %>% 
+  select(hzcy001a:hzcy005a)
+
+head(gpc_risk)
+```
+
+---
+
+## Unselecting variables
+
+`select()` from `dplyr` also allows you to easily exclude one or more columns/variables.
+
+```{r unselect}
+gpc_risk_self <- gpc_risk %>% 
+  select(-c(hzcy002a, hzcy005a))
+
+head(gpc_risk_self)
+```
+
+---
+
+## Advanced ways of selecting variables
+
+`dplyr` offers a set of helper functions for selecting variables. For a full list of those options, you should check out the [documentation for the `select()` function](https://dplyr.tidyverse.org/reference/select.html).
+
+```{r select-helper}
+gpc_cy <- gpc %>% 
+  select(starts_with("hzcy"))
+
+gpc_cat <- gpc %>% 
+  select(ends_with("_cat"))
+
+glimpse(gpc_cat)
+```
+
+*Note*: You can also consult the help file for the function in `R`/*RStudio* through the command `?select`.
+
+---
+
+## Advanced ways of selecting variables
+
+Another particularly useful selection helper is `where()`. You can, e.g., use `where()` to select only a specific type of variables, such as `select(where(is.numeric))`. As the synthetic dataset we use in our course only includes numeric variables, however, we will instead use `where()` to select only dichotomous variables (that have a *min* of 0 and a *max* of 1).
+
+```{r where}
+gpc_bin <- gpc %>% 
+  select(where(~ min(.x, na.rm = T) == 0 & max(.x, na.rm = T) == 1)) #<<
+
+gpc_bin %>% 
+  select(1:5) %>% 
+  glimpse()
+```
+
+---
+
+## Renaming variables
+
+As the variable names are not self-explanatory, we might want to change them. We will use `r ji("snake")` *snake_case*<sup>1</sup> in our examples.
+
+```{r rename}
+gpc_risk <- gpc_risk %>% 
+  rename(risk_self = hzcy001a, # new_name = old_name
+         risk_surroundings = hzcy002a,
+         risk_hospital = hzcy003a,
+         risk_quarantine = hzcy004a,
+         risk_infect_others = hzcy005a)
+
+names(gpc_risk)
+```
+
+.footnote[
+[1] For a good introduction to naming schemes that avoid spaces, you can check out the [Medium post by Patrick Divine](https://medium.com/@pddivine/string-case-styles-camel-pascal-snake-and-kebab-case-981407998841).
+]
+
+---
+
+## Renaming variables
+
+For some more advanced renaming options, you can use the `dplyr` function `rename_with()`.
+
+```{r rename-with}
+gpc_risk <- gpc_risk %>% 
+  rename_with(toupper)
+
+names(gpc_risk)
+```
+
+
+*Note*: The [`janitor` package](https://github.com/sfirke/janitor) (which is `tidyverse`-oriented) can be used to facilitate several common data cleaning tasks, including renaming variables.
+
+---
+
+## Re~~wind~~name selecta
+
+You can also use `select` to select and rename variables in one step.
+
+```{r select-rename}
+gpc_risk <- gpc %>% 
+  select(risk_self = hzcy001a,
+         risk_surroundings = hzcy002a,
+         risk_hospital = hzcy003a,
+         risk_quarantine = hzcy004a,
+         risk_infect_others = hzcy005a)
+
+names(gpc_risk)
+```
+
+---
+
+## Moving columns
+
+Although the positions of columns in a data frame do not matter for analyses or plotting (unless you want to select columns using their numerical index), you might want to change them. For this purpose, `dplyr` provides the `relocate()` function.
+
+```{r relocate}
+gpc_risk <- gpc_risk %>% 
+  relocate(risk_infect_others, .after = risk_surroundings)
+
+glimpse(gpc_risk)
+```
+
+*Note*: You can also move a column before a specific other column by provide a variable name to the `.before` argument (instead of `.after`).
+
+---
+
+## `dplyr::relocate()`
+
+```{r, relocate-cartoon, out.width = "85%", echo = F}
+include_picture("dplyr_relocate.png")
+```
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
+
+---
+
+## Filtering rows/observations
+
+In `R`, you can filter rows/observations dependent on one or more conditions.
+
+To filter rows/observations you can use... 
+- **comparison operators**:
+    - **<** (smaller than)
+    - **<=** (smaller than or equal to)
+    - **==** (equal to)
+    - **!=** (not equal to)
+    - **>=** (larger than or equal to)
+    - **>** (larger than)
+    - **%in%** (included in)
+
+... and combine them with
+- **logical operators**:
+    - **&** (and)
+    - **|** (or)
+    - **!** (not)
+    - **xor** (either or, not both)
+    
+---
+
+## Filtering rows/observations
+
+The `dplyr` solution for filtering rows/observations is the verb `filter()`.
+
+```{r dplyr-filter-1}
+gpc_male <- gpc %>% 
+  filter(sex == 1)
+
+dim(gpc_male)
+```
+
+---
+
+## Filtering rows based on multiple conditions
+
+```{r filter-2-cond}
+gpc_old_men <- gpc %>% 
+  filter(sex == 1, age_cat > 7)
+
+dim(gpc_old_men)
+```
+
+---
+
+## `dplyr::filter` - multiple conditions
+
+By default, multiple conditions in `filter()` are added as & (and). You can, however, also specify multiple conditions differently.
+
+**or** (cases for which at least one of the conditions is true)
+
+.small[
+```{r filter-or}
+gpc_old_andor_male <- gpc %>% 
+  filter(sex == 1 |
+           age_cat > 7)
+
+dim(gpc_old_andor_male)
+```
+]
+
+**xor** (cases for which only one of the two conditions is true)
+
+.small[
+```{r filter-xor}
+gpc_old_or_male <- gpc %>%
+  filter(xor(sex == 1, 
+             age_cat > 7))
+
+dim(gpc_old_or_male)
+```
+]
+
+---
+
+## `dplyr::filter()`
+
+```{r, filter-cartoon, out.width = "95%", echo = F}
+include_picture("dplyr_filter.jpg")
+```
+<small><small>Artwork by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)</small></small>
+
+---
+
+## Advanced ways of filtering observations
+
+.small[
+Similar to `select()` there are some helper functions for `filter()` for advanced filtering of rows. For example, you can...
+
+ - Filter rows based on a range in a numeric variable
+
+```{r between}
+gpc_centrist <- gpc %>% 
+    filter(between(political_orientation, 4, 6))
+
+dim(gpc_centrist)
+```
+
+*Note*: The range specified in `between()` is inclusive (on both sides).
+
+- Filter rows based the values of specific variables matching certain criteria
+
+```{r if-all}
+gpc_risk_low <- gpc_risk %>% 
+  filter(if_all(everything(), ~ . < 4)) # read: if the values of all vars in this df are < 4
+
+dim(gpc_risk_low)
+```
+
+*Note*: The helper function `if_any()` can be used to specify that at least one of the variables needs to match a criterion.
+]
+
+---
+
+## (Re-)Arranging the order of rows
+
+Again, while this does not directly matter for analyses or plotting (unless you want to filter rows by their numeric index), you can rearrange the order of rows in a data set. The appropriate `dplyr` verb for this is `arrange()`.
+
+```{r arrange}
+gpc %>% 
+  arrange(age_cat) %>% #<<
+  select(sex:household) %>% 
+  glimpse()
+```
+
+---
+
+## (Re-)Arranging the order of rows
+
+Of course, it is also possible to sort a data frame in descending order of a variable.
+
+```{r arrange-desc}
+gpc %>% 
+  arrange(desc(age_cat)) %>% #<<
+  select(sex:household) %>% 
+  glimpse()
+```
+
+*Note*: You can also use `-` instead of `desc()`, if you sort by numeric variables.
+
+---
+
+## (Re-)Arranging the order of rows
+
+Data frames can also be sorted by more than one variable.
+
+```{r arrange-mult}
+gpc %>% 
+  arrange(age_cat, education_cat) %>% #<<
+  select(sex:household) %>% 
+  glimpse()
+```
+
+---
+
+class: center, middle
+
+# [Exercise](https://jobreu.github.io/tidyverse-workshop-esra-2021/exercises/DataWrangling1_question.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
+
+## [Solutions](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/DataWrangling1_solution.html)
