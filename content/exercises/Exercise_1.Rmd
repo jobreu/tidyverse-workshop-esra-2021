@@ -21,12 +21,16 @@ klippy::klippy(position = c("top", "right"))
 
 As this is the very first exercise in this workshop, it is relatively easy and short. Its purpose is to get used to this exercise format and, more importantly, to install all necessary packages for this course.
 
-*Note*: You can find the solutions for this exercise and all other exercises in the `./solutions` folder in the repo/directory that contains the course materials. You can copy code from these exercise files by clicking on the small blue clipboard icon in the code boxes' upper right corner.
+You can find the solutions for this exercise and all other exercises in the `./solutions` folder in the repo/directory that contains the course materials. You can copy code from these exercise files by clicking on the small blue clipboard icon in the code boxes' upper right corner.
+
+*Note*: We recommend you to use the `./MY_CODE` folder to store your `R`-script files for this course. If you do that, you have to make sure that your script uses the root directory of the course materials as working directory. You can check the current working directory with `getwd()` and set it with `setwd()` accordingly.
+
+A presumably more elegant solution would be to use `RStudio` and open the `tidyverse-workshop-esra-2021.Rproj` to open it as a project. In this case, the path is already set.
 
 And here comes our very first exercise:
 
 ```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
-Please install all packages that are listed on slide XX of the Introduction slides ("XXX.html").
+Please install and/or load the `tidyverse` package.
 ```
 
 ```{block, opts.label = "clues"}
@@ -39,22 +43,47 @@ easypackages::packages(
 )
 ```
 
-And here's another quick exercise
+And here's another quick exercise.
 
 ```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
-Load `R`'s built-in dataset `USAarrests`, convert it to a `tibble` and feed it into the function `dplyr::glimpse()`. Ideally, you use a `%>%`-workflow for the last two steps. What do you think happens to the output? 
+Load `R`'s built-in dataset `USAarrests` and print it.
 ```
 
 ```{block, opts.label = "clues"}
-We can import built-in data using the `data()` function and set the data name into quotation marks.
+You could either enter `USAarrests` directly in the console or use the `print()` function.
 ```
 
 ```{r second.exercise, solution = TRUE}
 data("USArrests")
 
-USArrests %>% 
-  tibble::as_tibble() %>% 
-  dplyr::glimpse()
+USArrests
+```
+
+```{block, box.title = "3", box.body = list(fill = "white"), box.icon = "fa-star"}
+Now, convert the data to a `tibble` and print it. Compare it to the previous output.
+```
+
+```{block, opts.label = "clues"}
+You need the `tibble::as_tibble()` function.
+```
+
+```{r third.exercise, solution = TRUE}
+USArrests_tibble <-
+  tibble::as_tibble(USArrests)
+
+USArrests_tibble
+```
+
+```{block, box.title = "4", box.body = list(fill = "white"), box.icon = "fa-star"}
+Feed the data into the function `dplyr::glimpse()`. What do you think happens to the output? 
+```
+
+```{block, opts.label = "clues"}
+Compare it to the previous outputs.
+```
+
+```{r fourth.exercise, solution = TRUE}
+dplyr::glimpse(USArrests_tibble)
 
 # dplyr::glimpse() provides another method of displaying the data. In such small 
 # datasets, in doesn't make a hughe difference. But as tibbles' output are 
@@ -62,6 +91,20 @@ USArrests %>%
 # glimpse (haha) on the data.
 ```
 
+```{block, box.title = "5", box.body = list(fill = "white"), box.icon = "fa-star"}
+Finally, reload the data. Convert it to a tibble and apply `dplyr::glimpse()` in one `%>%`-workflow.
+```
 
+```{block, opts.label = "clues"}
+Remember that the data object precedes the function call: `x %>% f(.)`
+```
+
+```{r fifth.exercise, solution = TRUE}
+data("USArrests")
+
+USArrests %>% 
+  tibble::as_tibble() %>% 
+  dplyr::glimpse()
+```
 
 
