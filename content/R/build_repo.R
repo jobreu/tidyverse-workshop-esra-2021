@@ -142,13 +142,13 @@ if (file.exists(glue::glue(exercises_home, "exercises_list.csv"))) {
 }
 
 # build files that changed
-for (i in exercises_list) {
+for (i in 1:nrow(exercises_list)) {
   
   if (isFALSE(exercises_list$previous[i] == exercises_list$current[i]) | isTRUE(build_all)) {
     
     # exercise
     rmarkdown::render(
-      glue::glue("./content/exercises/", i),
+      glue::glue("./content/exercises/", exercises_list$excercise_name[i]),
       output_format = 
         unilur::tutorial_html(suffix = ""),
       knit_root_dir = getwd()
@@ -168,7 +168,7 @@ for (i in exercises_list) {
     
     # solution
     rmarkdown::render(
-      glue::glue("./content/exercises/", i),
+      glue::glue("./content/exercises/", exercises_list$excercise_name[i]),
       output_format = 
         unilur::tutorial_html_solution(suffix = ""),
       knit_root_dir = getwd()
