@@ -20,6 +20,9 @@ layout: true
 # load all packages
 source("./content/R/load_packages.R")
 
+# load custom functions
+source("./content/R/helper_functions.R")
+
 options(htmltools.dir.version = FALSE,
         htmltools.preserve.raw = FALSE)
 
@@ -168,7 +171,7 @@ course_content
 > The `tidyverse` is a .highlight[coherent system of packages for data manipulation, exploration and visualization] that share a .highlight[common design philosophy] ([Rickert, 2017](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/)).
 
 ```{r, out.width = "25%", echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/hex-tidyverse.png"))
+include_picture("hex-tidyverse.png")
 ```
 
 ---
@@ -197,7 +200,7 @@ meme_get("DistractedBf") %>%
 ```
 
 ```{r tidy meme print, echo = FALSE, out.width="60%"}
-knitr::include_graphics(normalizePath("./content/img/DistractedBf.png"))
+include_picture("/DistractedBf.png") 
 ```
 
 ---
@@ -206,7 +209,7 @@ knitr::include_graphics(normalizePath("./content/img/DistractedBf.png"))
 
 .center[
 ```{r data-science-pic, echo = FALSE, out.width="60%"}
-knitr::include_graphics(normalizePath("./content/img/data-science.png"))
+include_picture("data-science.png")
 ```
 ]
 <small><small>Source: http://r4ds.had.co.nz/</small></small>
@@ -224,7 +227,7 @@ knitr::include_graphics(normalizePath("./content/img/data-science.png"))
 
 .center[
 ```{r tidyverse-pic, echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/tidyverse-1200x484.png"))
+include_picture("tidyverse-1200x484.png")
 ```
 ]
 <small><small>Source: http://www.storybench.org/getting-started-with-tidyverse-in-r/</small></small>
@@ -281,7 +284,7 @@ The 3 rules of tidy data:
 
 
 ```{r tidy-data, echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/tidy_data.png"))
+include_picture("tidy_data.png")
 ```
 Source: https://r4ds.had.co.nz/tidy-data.html
 
@@ -292,7 +295,7 @@ Source: https://r4ds.had.co.nz/tidy-data.html
 ## Wide vs. long format
 
 ```{r wide-long-pic, echo = FALSE, out.width="90%"}
-knitr::include_graphics(normalizePath("./content/img/wide-long.png"))
+include_picture("wide-long.png")
 ```
 Source: https://github.com/gadenbuie/tidyexplain#tidy-data
 
@@ -366,7 +369,7 @@ meme_get("OprahGiveaway") %>%
 ```
 
 ```{r pipe-meme-include, echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/OprahGiveaway.png"))
+include_picture("OprahGiveaway.png")
 ```
 
 ---
