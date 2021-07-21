@@ -49,9 +49,8 @@ xaringanExtra::use_extra_styles(
 
 .large[
 This course is about cleaning survey data.
-- thus, making them tidy
 
-There's one important prerequisite:
+There's one important prerequisite for that:
 
 .center[**We need data!**]
 ]
@@ -62,21 +61,33 @@ include_picture("import_data.png")
 
 ---
 
+## Data for this workshop
+
+For this workshop, we will use a synthetic data set based on the data from the [*GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany*](https://search.gesis.org/research_data/ZA5667). This synthetic data set was created by [Bernd Weiß](https://berndweiss.net/) using the [`synthpop` package](https://www.synthpop.org.uk/).
+
+Original data set:
+
+GESIS Panel Team (2020). *GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany*. GESIS Data Archive, Cologne. ZA5667 Data file Version 1.1.0, [https://doi.org/10.4232/1.13520](https://doi.org/10.4232/1.13520)
+
+*Note*: The [`gesisdata` package](https://cran.r-project.org/web/packages/gesisdata/index.html) allows direct access to *GESIS* data in `R`, given that you have [proper credentials](https://login.gesis.org/).
+
+---
+
 ## Getting data into the `tidyverse`
 
-`base R` already provides tools to import data
-- e.g., `read.csv()` to import Comma Seperated Value (CSV) files
+`base R` already provides tools for importing data
+- e.g., `read.csv()` for importing Comma Separated Value (CSV) files
 
-And the `tidyverse` provides some nice tools to do that too:
-- `readr`  (for 'flat' files, such as CSV)
-- `haven`  (for statistical software files, such as SPSS, Stata, and SAS; can also handle labelled data)
-- `readxl` (for Excel spreadsheets)
+The `tidyverse` extends these options through a set of packages:
+- `readr`  (for 'flat' files, such as `CSV`)
+- `haven`  (for statistical software files, such as *SPSS*, *Stata*, and *SAS*; can also handle labelled data)
+- `readxl` (for *Excel* spreadsheets)
 
 ```{r, out.width = "50%", echo = FALSE}
 include_picture("hex_all_in_one.png")
 ```
 
-A key difference between these packages and others is that `tidyverse` import functions already prepare the data for being 'tidied': they are a `tibbles`
+A key difference between these packages and others is that `tidyverse` import functions already prepare the data for being 'tidied' by importing them as `tibbles`.
 
 ---
 
@@ -87,8 +98,6 @@ gpc_csv <-
 ```
 
 Note the column specifications. `readr` 'guesses' them based on the first 1000 observations (we will come back to this later).
-
-
 
 ---
 
@@ -103,7 +112,9 @@ gpc_csv
 ```
 ]
 
-The *GESIS Panel* website provides [detailed documentation](https://www.gesis.org/gesis-panel/documentation), including a [cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf).
+.small[
+*Note*: To know what the variables represent, we can consult the [codebook](https://dbk.gesis.org/dbksearch/download.asp?id=67378) for the original data. In general, the *GESIS Panel* website provides very [detailed documentation](https://www.gesis.org/gesis-panel/documentation) for the studies. The [*GESIS Panel* cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf) is particularly helpful for understanding the data structure and variable naming scheme.
+]
 
 ---
 
@@ -140,8 +151,6 @@ gpc_dta <-
   )
 ```
 
-Note: The [`gesisdata` package](https://cran.r-project.org/web/packages/gesisdata/index.html) allows direct access to the *GESIS* data `R`, given that you have [proper credentials](https://login.gesis.org/).
-
 ---
 
 ## A haven example: `read_stata()` 
@@ -161,7 +170,7 @@ class: middle
 
 .center[
 ```{r same-picture-code, eval = FALSE}
-gpc_csv  ...  pc_xlsx  ...  gpc_dta
+gpc_csv  ...  gpc_xlsx  ...  gpc_dta
 ```
 ]
 
@@ -184,17 +193,17 @@ include_picture("same_picture.jpg")
 
 ## `read_stata()`'s siblings
 
-Indeed, there's also the function `read_spss()` and `read_sas()` to import SPSS and SAS files.
+`haven` also offers the functions `read_spss()` and `read_sas()` for importing *SPSS* and *SAS* files.
 
-`read_spss()` also provides capabilities to handle SPSS-defined missing values by setting the option `user_na = TRUE` (default is `FALSE`).
+`read_spss()` also provides capabilities for handling *SPSS*-defined missing values by setting the option `user_na = TRUE` (default is `FALSE`).
 
-The [`sjlabelled` package](https://cran.r-project.org/web/packages/sjlabelled/index.html) can also be used to choose a more elaborated approach for missing values: https://cran.r-project.org/web/packages/sjlabelled/vignettes/intro_sjlabelled.html
+We will talk a bit more about missing values in the next session on data wrangling.
 
 ---
 
-## There's more
+## But there's more...
 
-These were just some very first examples of applying functions from each package. They comprise even more functions for different data types.
+These were just some examples of the many functions available for importing data in the `tidyverse` packages. There are many more for various different data types...
 
 .pull-left[
 `readr`
@@ -213,7 +222,7 @@ These were just some very first examples of applying functions from each package
 - `read_stata()`
 ]
 
-Not to mention all the helper functions and options. For example, we can define the cells to read from an Excel file by specifying the option `range = "C1:E4"` in `readxl::read_excel()`
+... not to mention all the helper functions and options. For example, we can define the cells to read from an *Excel* file by specifying the option `range = "C1:E4"` in `readxl::read_excel()`. If you want to know more, you can consult the help files for the individual functions.
 
 ---
 
@@ -221,13 +230,11 @@ Not to mention all the helper functions and options. For example, we can define 
 
 Sometimes our data have to leave the `tidyverse` (or even `R`), for example, if we....
 
-- share data with colleagues who do not use `R`
+- share data with colleagues (incl. those who do not use `R`)
 - want to continue where we left off
-- particularly, if data wrangling took a long time
+  - particularly, if data wrangling took a long time
 
-For such purposes we also need a way to export our data.
-
-All of the packages we have discussed in this session also have designated functions for that.
+All of the packages we have discussed in this session also have designated functions for exporting data.
 
 ```{r, out.width = "50%", echo = FALSE}
 include_picture("export_data.png")
@@ -257,7 +264,9 @@ unlink("gpc_own.dta")
 
 ---
 
-# Data types
+## Data types
+
+As you may know, there are many different data/variable types in `R`, such as...
 
 .pull-left[
 characters
@@ -283,19 +292,19 @@ factors
 - specified by `col_factor()`
 ]
 
-.pull-left[
+.center[
 logical
 - indicated by `<lgl>`
 - specified by `col_logical()`
 ]
 
-.pull-right[**There's more, but we'll leave it at that for now.**]
+.center[**There's more, but we'll leave it at that for now.**]
 
 ---
 
 ## Changing variable types
 
-As mentioned before, `readr::read_csv()` 'guesses' the variable types by scanning the first 1000 observations. NB: **This can go wrong!**
+As mentioned before, `readr::read_csv()` (and other data import functions from the `tidyverse`) 'guesses' the variable types by scanning the first 1000 observations. Of course,this can go wrong.
 
 Luckily, we can change the variable type...
 - before/while loading the data
@@ -339,7 +348,7 @@ gpc <-
 gpc <-
   gpc %>% 
   readr::type_convert(
-    titanic,
+    gpc,
     col_types = cols(
       age_cat = col_factor()
     )
@@ -353,24 +362,24 @@ gpc <-
 The great benefit of `tidyverse` import functions is the import of the data as tibbles: the data are potentially tidier.
 
 Several other non-tidyverse packages provide similar benefits as they make use of this universal data format:
-- [`sf`](https://github.com/r-spatial/sf) for geospatial data
 
-- [`sjlabelled`](https://cran.r-project.org/web/packages/sjlabelled/index.html) to work with labelled data, e.g., from SPSS or Stata
+- [`sjlabelled`](https://cran.r-project.org/web/packages/sjlabelled/index.html) for labelled data, e.g., from *SPSS* or *Stata*
+
+- [`sf`](https://github.com/r-spatial/sf) for geospatial data
 
 ---
 
 ## Other packages for data import
 
-- `base` R
+- `base R`
 
-- the [`foreign` package](https://cran.r-project.org/web/packages/foreign/index.html) for SPSS and Stata files
+- the [`foreign` package](https://cran.r-project.org/web/packages/foreign/index.html) for *SPSS* and *Stata* files
 
-- [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html) or [`fst`](https://www.fstpackage.org/) for large datasets
+- [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html) or [`fst`](https://www.fstpackage.org/) for large data sets
 
-- [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/index.html) for json files
+- [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/index.html) for `json` files
 
-- [`datapasta`](https://github.com/MilesMcBain/datapasta) for copying and pasting data into tribbles (e.g., from websites, Excel or Word files)
-
+- [`datapasta`](https://github.com/MilesMcBain/datapasta) for copying and pasting data into so-called [tribbles](https://tibble.tidyverse.org/reference/tribble.html), which are special versions of tibbles (e.g., from websites, *Excel* or *Word* files)
 ---
 
 class: center, middle

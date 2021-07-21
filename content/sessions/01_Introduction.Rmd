@@ -70,7 +70,9 @@ xaringanExtra::use_extra_styles(
     - Data management
     - Open science
 
-[johannes.breuer@gesis.org](mailto:johannes.breuer@gesis.org), [@MattEagle09](https://twitter.com/MattEagle09), [personal website](https://www.johannesbreuer.com/)
+[johannes.breuer@gesis.org](mailto:johannes.breuer@gesis.org) |
+[@MattEagle09](https://twitter.com/MattEagle09) |
+[personal website](https://www.johannesbreuer.com/)
 ]
 
 ---
@@ -160,7 +162,7 @@ course_content
 
 - If you have a question that is not urgent and might be interesting for everybody, you can also use audio (& video) to ask it during the exercise parts
 
-- We would also kindly ask you to mute your microphones when you are not asking a question or engaging in discussions or group work
+- We would also kindly ask you to mute your microphones when you are not asking (or answering) a question
 
 ---
 
@@ -179,7 +181,7 @@ include_picture("hex-tidyverse.png")
 ## Benefits of the `tidyverse`
 
 .large[
-Most of the things we are going to show you can also be achieved with base `R`. However, the syntax for this is typically (more) verbose and not intuitive and, hence, difficult to learn, remember, and read (plus many `tidyverse` operations are faster than their base R equivalents).
+Most of the things we are going to show you can also be achieved with base `R`. However, the syntax for this is typically (more) verbose and not intuitive and, hence, difficult to learn, remember, and read (plus many `tidyverse` operations are faster than their base `R` equivalents).
 ]
 
 ---
@@ -194,12 +196,12 @@ Most of the things we are going to show you can also be achieved with base `R`. 
 
 ## `tidyverse` for `R` beginners
 
-```{r tidy meme, eval = FALSE}
+```{r tidy meme, eval = FALSE, echo = FALSE}
 meme_get("DistractedBf") %>% 
   meme_text_distbf("tidyverse", "new R users", "base R")
 ```
 
-```{r tidy meme print, echo = FALSE, out.width="60%"}
+```{r tidy meme print, echo = FALSE, out.width="75%"}
 include_picture("/DistractedBf.png") 
 ```
 
@@ -241,22 +243,11 @@ install.packages("tidyverse")
 
 ```
 **Load core `tidyverse` packages** (NB: To save time and reduce namespace conflicts it can make sense to load the `tidyverse` packages individually)
-.small[
+
 ```{r load tidyverse, eval = T, echo = T, message = T}
 library("tidyverse")
 
 ```
-]
-
----
-
-## Data for this workshop
-
-For this workshop, we will use a synthetic data set based on the data from the [*GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany*](https://search.gesis.org/research_data/ZA5667). This synthetic data set was created by [Bernd Weiß](https://berndweiss.net/) using the [`synthpop` package](https://www.synthpop.org.uk/).
-
-Original data set:
-
-GESIS Panel Team (2020). *GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany*. GESIS Data Archive, Cologne. ZA5667 Data file Version 1.1.0, [https://doi.org/10.4232/1.13520](https://doi.org/10.4232/1.13520)
 
 ---
 
@@ -301,22 +292,23 @@ Source: https://github.com/gadenbuie/tidyexplain#tidy-data
 
 ---
 
-## Tibbles all the way
+## Tibbles
 
 .pull-left[
 Tibbles are basically just `R data.frames` but nicer.
+
 - only the first ten observations are printed
   - output is tidier!
-- you get some additonal metadata about rows and columns you'd usually only get when, e.g., using `dim()` and other functions
+  
+- you get some additional metadata about rows and columns that you would normally only get when using `dim()` and other functions
 
-Please refer to this [vignette](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) for the technical details.
+You can check the [tibble vignette](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) for technical details.
 ]
 
 .pull-right[
 ```{r tibble-pic, echo = FALSE, out.width="60%"}
 include_picture("tibble.png")
 ```
-.center[[Source](https://github.com/tidyverse/tibble/blob/master/man/figures/logo.png)]
 ]
 
 ---
@@ -352,9 +344,9 @@ gpc
 
 ---
 
-## Converting data into tibbles
+## Converting dataframes into tibbles
 
-We can also convert any `data.frame` into a `tibble`:
+You can convert any `data.frame` into a `tibble`:
 
 ```{r tibble-convert, eval = FALSE}
 gpc <- as.data.frame(gpc)
@@ -372,20 +364,7 @@ tibble::as_tibble(gpc)
 
 ---
 
-## Pipes everywhere...
-
-```{r pipe meme, echo = FALSE, eval = FALSE}
-meme_get("OprahGiveaway") %>% 
-  meme_text_bottom("EVERYONE GETS A %>%!!!", size = 36)
-```
-
-```{r pipe-meme-include, echo = FALSE, out.width="60%"}
-include_picture("OprahGiveaway.png")
-```
-
----
-
-## The Logic of Pipes
+## The logic of pipes
 
 Usually, in `R` we apply functions as follows:
 
@@ -414,6 +393,21 @@ More details: https://r4ds.had.co.nz/pipes.html
 
 ---
 
+## Pipes everywhere...
+
+```{r pipe meme, echo = TRUE, eval = FALSE}
+library(memer)
+
+meme_get("OprahGiveaway") %>% 
+  meme_text_bottom("EVERYONE GETS A %>%!!!", size = 36)
+```
+
+```{r pipe-meme-include, echo = FALSE, out.width="60%"}
+include_picture("OprahGiveaway.png")
+```
+
+---
+
 ## Resources
 
 There are hundreds of tutorials, courses, blog posts, etc. about the `tidyverse` available online. The book [*R for Data Science*](https://r4ds.had.co.nz/) by [Hadley Wickham](http://hadley.nz/) and [Garrett Grolemund](https://twitter.com/statgarrett) (which is available for free online) provides a very comprehensive introduction to the `tidyverse`.
@@ -422,18 +416,20 @@ The weekly [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) data p
 
 ---
 
-## Cheat sheets
+## Cheatsheets
 
-*RStudio* offers a good collection of [cheat sheets for R](https://www.rstudio.com/resources/cheatsheets/).
+*RStudio* offers a good collection of [cheatsheets for R](https://www.rstudio.com/resources/cheatsheets/).
 
 The following two are of particular interest for this workshop:
 
-- [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+- [Data Import Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
 
-- [Data Transformation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+- [Data Transformation Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 
 ---
 
 class: center, middle
 
-# Any questions so far `r ji("question_mark")`
+# [Exercise](https://jobreu.github.io/tidyverse-workshop-esra-2021/exercises/Exercise_1.html) time `r ji("weight_lifting_woman")``r ji("muscle")``r ji("running_man")``r ji("biking_man")`
+
+## [Solutions](https://jobreu.github.io/tidyverse-workshop-esra-2021/solutions/Exercise_1.html)

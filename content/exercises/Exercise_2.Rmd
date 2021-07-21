@@ -18,11 +18,13 @@ knitr::opts_template$set(
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy()
+klippy::klippy(klippy::klippy(position = c("top", "right")))
 ```
 
+In this set of exercises, we will import some data.
+
 ```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
-Load the GESIS Panel data as CSV.
+Load the synthetic version of the *GESIS Panel* data as `CSV`.
 ```
 
 ```{block, opts.label = "clues"}
@@ -55,7 +57,7 @@ gpc <-
 ```
 
 ```{block, box.title = "3", box.body = list(fill = "white"), box.icon = "fa-star"}
-Export the dataset as Stata file.
+Export the dataset as a *Stata* file.
 ```
 
 ```{block, opts.label = "clues"}

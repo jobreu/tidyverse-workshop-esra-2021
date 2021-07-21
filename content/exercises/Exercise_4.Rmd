@@ -18,7 +18,7 @@ knitr::opts_template$set(
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy()
+klippy::klippy(klippy::klippy(position = c("top", "right")))
 ```
 
 In this set of short exercises, we will continue with our data wrangling tasks.

@@ -35,13 +35,13 @@ Participants will need a working installation of `R` and *RStudio* and should, i
 # Slides
 [Introduction](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/01_Introduction.html)
 
-[Data Import](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/02_Importing_Data.html)
+[Data Import](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/02_Data_Import.html)
 
-[Data Wrangling I](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/03_Data_Wrangling1.html)
+[Data Wrangling I](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/03_Data_Wrangling_1.html)
 
-[Data Wrangling II](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/04_Data_Wrangling2.html)
+[Data Wrangling II](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/04_Data_Wrangling_2.html)
 
-[Wrap-Up](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/05_Outlook.html)
+[Wrap-Up](https://jobreu.github.io/tidyverse-workshop-esra-2021/slides/05_Wrap_Up.html)
 
 
 # Exercises
