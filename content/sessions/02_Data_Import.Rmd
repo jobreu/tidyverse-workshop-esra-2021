@@ -104,7 +104,7 @@ gpc_csv
 ]
 
 The *GESIS Panel* website provides [detailed documentation](https://www.gesis.org/gesis-panel/documentation), including a [cheatsheet](https://www.gesis.org/fileadmin/upload/forschung/programme_projekte/Drittmittelprojekte/GESIS_Panel/gesis_panel_cheatsheet.pdf).
-]
+
 ---
 
 ## A readxl example: `read_excel()`
@@ -283,13 +283,13 @@ factors
 - specified by `col_factor()`
 ]
 
-.center[
+.pull-left[
 logical
 - indicated by `<lgl>`
 - specified by `col_logical()`
 ]
 
-.center[**There's more, but we'll leave it at that for now.**]
+.pull-right[**There's more, but we'll leave it at that for now.**]
 
 ---
 
@@ -317,9 +317,16 @@ gpc <-
 
 ---
 
-```{r readr_example_col_change_display, echo = TRUE}
+
+```{r readr_example_col_change_2, eval = TRUE}
+gpc 
+```
+
+.tiny[
+```{r readr_example_col_change_display, echo = FALSE}
 gpc
 ```
+]
 
 ---
 
