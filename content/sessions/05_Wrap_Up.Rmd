@@ -94,7 +94,7 @@ Some examples:
 class: middle
 
 ```{r tidyverse-base-r, echo = FALSE, out.width = "60%"}
-knitr::include_graphics(normalizePath("./content/img/tidyverse.png"))
+include_picture("tidyverse.png")
 ```
 
 ---

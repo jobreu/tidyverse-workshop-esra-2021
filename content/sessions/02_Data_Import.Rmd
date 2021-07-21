@@ -57,7 +57,7 @@ There's one important prerequisite:
 ]
 
 ```{r, out.width = "50%", echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/import_data.png"))
+include_picture("import_data.png")
 ```
 
 ---
@@ -73,7 +73,7 @@ And the `tidyverse` provides some nice tools to do that too:
 - `readxl` (for Excel spreadsheets)
 
 ```{r, out.width = "50%", echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/hex_all_in_one.png"))
+include_picture("hex_all_in_one.png")
 ```
 
 A key difference between these packages and others is that `tidyverse` import functions already prepare the data for being 'tidied': they are a `tibbles`
@@ -175,7 +175,7 @@ gpc_csv
 
 .pull-right[
 ```{r same-picture, echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/same_picture.jpg"))
+include_picture("same_picture.jpg")
 ```
 ]
 
@@ -230,7 +230,7 @@ For such purposes we also need a way to export our data.
 All of the packages we have discussed in this session also have designated functions for that.
 
 ```{r, out.width = "50%", echo = FALSE}
-knitr::include_graphics(normalizePath("./content/img/export_data.png"))
+include_picture("export_data.png")
 ```
 
 ---
