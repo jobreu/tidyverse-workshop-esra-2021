@@ -1,0 +1,135 @@
+---
+title: 'Exercise 3'
+author: 'Johannes Breuer & Stefan Jünger'
+date: 'Introduction to Survey Data Cleaning Using Tidyverse in R'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r knitr_init, echo=FALSE, cache=FALSE, include=FALSE}
+# custom boxes
+knitr::opts_template$set(
+  clues = list(box.title = "Clues",
+               box.body = list(fill = "#fff9dc", colour = "black"),
+               box.header = list(fill = "#ffec8b", colour = "black"),
+               box.icon = "fa-search",
+               box.collapse = TRUE)
+)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+As in the presentation, we will use the synthetic data set based on the from the [Public Use File (PUF) of the GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany](https://www.gesis.org/gesis-panel/coronavirus-outbreak) for the following exercises. As a reminder: This data set should be stored in the `data` subfolder in the folder with the course materials.
+For the exercises in this session and the following one, it is also helpful to consult the [codebook for the original data set](https://dbk.gesis.org/dbksearch/download.asp?id=67378).
+
+In the following exercises, we will perform some basic data wrangling tasks.
+
+Of course, as always, before we can do that, we need to load the `tidyverse` package(s) and import the data.
+
+```{r read-data, message = F}
+library(tidyverse)
+
+gpc <- read_csv("./data/ZA5667_v1-0-0_Stata14_synthetic-data.csv")
+```
+
+```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
+First, let's create a new object named `gpc_info` that only contains the (binary) variables that asked about the use of different sources of information about the Corona virus. To find the right names, you can check the codebook (search for "media consumption") or have a look at the clue for this task.
+```
+
+```{block, opts.label = "clues"}
+The first variable we want to select for our subset is named `hzcy084a`, and the last one is `hzcy095a`. They appear consecutively in the data set.
+```
+
+```{r first-exercise, solution = TRUE}
+gpc_info <- gpc %>% 
+  select(hzcy084a:hzcy095a)
+```
+
+```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
+Next, rename the variables in the newly created subset as follows and assign the result to the same object name as before (i.e., overwrite the `gpc_info` object): `info_nat_pub_br`, `info_nat_pr_br`, `info_nat_np`, `info_loc_pub_br`, `info_loc_pr_br`, `info_loc_np`, `info_fb`, `info_other_sm`, `info_personal`, `info_other`, `info_none`.  
+```
+
+```{block, opts.label = "clues"}
+Remember that the correct syntax for renaming with the corresponding `dplyr` function is `new_name = old_name`.
+```
+
+```{r second-exercise, solution = TRUE}
+gpc_info <- gpc_info %>% 
+  rename(info_nat_pub_br = hzcy084a,
+         info_nat_pr_br = hzcy085a,
+         info_nat_np = hzcy086a,
+         info_loc_pub_br = hzcy087a,
+         info_loc_pr_br = hzcy088a,
+         info_loc_np = hzcy089a,
+         info_fb = hzcy090a,
+         info_other_sm = hzcy091a,
+         info_personal = hzcy092a,
+         info_other = hzcy093a,
+         info_none = hzcy095a)
+```
+
+```{block, box.title = "3", box.body = list(fill = "white"), box.icon = "fa-star"}
+Now, let's do the selection and renaming again, but this time in one step.
+```
+
+```{block, opts.label = "clues"}
+You can also rename variables within the `select()` command.
+```
+
+```{r third-exercise, solution = TRUE}
+gpc_info <- gpc %>% 
+  select(info_nat_pub_br = hzcy084a,
+         info_nat_pr_br = hzcy085a,
+         info_nat_np = hzcy086a,
+         info_loc_pub_br = hzcy087a,
+         info_loc_pr_br = hzcy088a,
+         info_loc_np = hzcy089a,
+         info_fb = hzcy090a,
+         info_other_sm = hzcy091a,
+         info_personal = hzcy092a,
+         info_other = hzcy093a,
+         info_none = hzcy095a)
+```
+
+```{block, box.title = "4", box.body = list(fill = "white"), box.icon = "fa-star"}
+After creating a dataframe that contains a subset of variables (columns), let's now create a dataframe that contains only a subset of cases (rows). Create an object named `gpc_afd` that only contains (simulated) respondents who report that they intend to vote in the next German federal election and that they intend to vote for the right-wing populist party *AfD* (Alternative fuer Deutschland). 
+```
+
+```{block, opts.label = "clues"}
+The names of the variables we need here are `intention_to_vote` and `choice_of_party` and the values we want to filter for are 2 (Yes), and 6 (AfD), respectively.
+```
+
+```{r fourth-exercise, solution = TRUE}
+gpc_afd <- gpc %>% 
+  filter(intention_to_vote == 2,
+         choice_of_party == 6)
+```
+
+```{block, box.title = "5", box.body = list(fill = "white"), box.icon = "fa-star"}
+Create another subset of cases called `gpc_middle_aged` that only includes (simulated) respondents aged 36 to 50.
+```
+
+```{block, opts.label = "clues"}
+The variable we need for this is called `age_cat` and the values of that variable we are looking for are 4 to 6. You can use the helper function `between()` here (remember that the values you provide to this function are inclusive).
+```
+
+```{r fifth-exercise, solution = TRUE}
+gpc_middle_aged <- gpc %>% 
+  filter(between(age_cat, 4, 6))
+```
+
+```{block, box.title = "6", box.body = list(fill = "white"), box.icon = "fa-star"}
+As a final exercise for this part, let's arrange the `gpc` data set based on the self-reported political orientation from right (high) to left (low). You do not need to save the resulting dataframe as a new object, but you should somehow check whether your code worked.
+```
+
+```{block, opts.label = "clues"}
+The variable we need for this task is called `political_orientation` which goes from 0 (left) to 10 (right). We want to sort in descending order. To check the result, we can use the `glimpse()` function at the end of the pipe.
+```
+
+```{r sixth-exercise, solution = TRUE}
+gpc %>% 
+  arrange(desc(political_orientation)) %>% 
+  glimpse()
+```
