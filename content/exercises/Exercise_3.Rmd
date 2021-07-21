@@ -18,7 +18,7 @@ knitr::opts_template$set(
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy(klippy::klippy(position = c("top", "right")))
+klippy::klippy(position = c("top", "right"))
 ```
 
 As in the presentation, we will use the synthetic data set based on the from the [Public Use File (PUF) of the GESIS Panel Special Survey on the Coronavirus SARS-CoV-2 Outbreak in Germany](https://www.gesis.org/gesis-panel/coronavirus-outbreak) for the following exercises. As a reminder: This data set should be stored in the `data` subfolder in the folder with the course materials.
