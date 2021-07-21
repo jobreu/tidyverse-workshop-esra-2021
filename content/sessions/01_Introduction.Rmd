@@ -303,14 +303,25 @@ Source: https://github.com/gadenbuie/tidyexplain#tidy-data
 
 ## Tibbles all the way
 
+.pull-left[
 Tibbles are basically just `R data.frames` but nicer.
 - only the first ten observations are printed
   - output is tidier!
 - you get some additonal metadata about rows and columns you'd usually only get when, e.g., using `dim()` and other functions
 
 Please refer to this [vignette](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) for the technical details.
+]
+
+.pull-right[
+```{r tibble-pic, echo = FALSE, out.width="60%"}
+include_picture("tibble.png")
+```
+.center[[Source](https://github.com/tidyverse/tibble/blob/master/man/figures/logo.png)]
+]
 
 ---
+
+## A `data.frame`
 
 .tiny[
 ```{r data-frame-print, echo = FALSE}
@@ -326,7 +337,7 @@ gpc
 
 ---
 
-class: middle
+## A `tibble`
 
 .tiny[
 ```{r tibble-print, echo = FALSE}
@@ -368,7 +379,7 @@ meme_get("OprahGiveaway") %>%
   meme_text_bottom("EVERYONE GETS A %>%!!!", size = 36)
 ```
 
-```{r pipe-meme-include, echo = FALSE}
+```{r pipe-meme-include, echo = FALSE, out.width="60%"}
 include_picture("OprahGiveaway.png")
 ```
 
