@@ -8,5 +8,6 @@ easypackages::packages(
   "gadenbuie/xaringanExtra",
   "gadenbuie/tweetrmd",
   "hadley/emo",
-  "sctyner/memer"
+  "sctyner/memer",
+  "tidyverse"
 )
