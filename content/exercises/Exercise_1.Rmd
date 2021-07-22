@@ -45,7 +45,7 @@ easypackages::packages(
 ```
 
 ```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
-Load the data set named `USAarrests` that is built into `R` and print it.
+Load the data set named `USArrests` that is built into `R` and print it.
 ```
 
 ```{block, opts.label = "clues"}
