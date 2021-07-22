@@ -269,36 +269,36 @@ unlink("gpc_own.dta")
 As you may know, there are many different data/variable types in `R`, such as...
 
 .pull-left[
-characters
+**characters**
 - indicated by `<chr>`
 - specified by `col_character()`
 ]
 
 .pull-right[
-integers
+**integers**
 - indicated by `<int>`
 - specified by `col_integer()`
 ]
 
 .pull-left[
-doubles
+**doubles**
 - indicated by `<dbl>`
 - specified by `col_double()`
 ]
 
 .pull-right[
-factors
+**factors**
 - indicated by `<fct>`
 - specified by `col_factor()`
 ]
 
 .center[
-logical
+**logical**
 - indicated by `<lgl>`
 - specified by `col_logical()`
 ]
 
-.center[**There's more, but we'll leave it at that for now.**]
+.center[There's more, but we'll leave it at that for now.]
 
 ---
 
@@ -307,7 +307,9 @@ logical
 As mentioned before, `readr::read_csv()` (and other data import functions from the `tidyverse`) 'guesses' the variable types by scanning the first 1000 observations. Of course,this can go wrong.
 
 Luckily, we can change the variable type...
+
 - before/while loading the data
+
 - and after loading the data
 
 ---

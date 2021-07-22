@@ -19,22 +19,23 @@ knitr::opts_template$set(
 klippy::klippy(position = c("top", "right"))
 ```
 
-As this is the very first exercise in this workshop, it is relatively easy and short. Its purpose is to get used to this exercise format and, more importantly, to install all necessary packages for this course.
+As this is the first set exercises in this workshop, it is relatively easy and short. Its purpose is also to get used to this exercise format.
 
-You can find the solutions for this exercise and all other exercises in the `./solutions` folder in the repo/directory that contains the course materials. You can copy code from these exercise files by clicking on the small blue clipboard icon in the code boxes' upper right corner.
+You can find the solutions for this exercise and all other exercises in the `./solutions` folder in the repo/directory that contains the course materials. You can easily copy code from these solution files by clicking on the small blue clipboard icon in the upper right corner of the solution boxes showing the code.
 
-*Note*: We recommend you to use the `./MY_CODE` folder to store your `R`-script files for this course. If you do that, you have to make sure that your script uses the root directory of the course materials as working directory. You can check the current working directory with `getwd()` and set it with `setwd()` accordingly.
+For working on the exercises, we suggest that you write `R` scripts (one per set of exercises or a combined one for the whole course) and store them in the `./MY_CODE` folder contained in the course materials. This folder already contains a script stub called `my_script.R` which you can use for getting started.
 
-A presumably more elegant solution would be to use `RStudio` and open the `tidyverse-workshop-esra-2021.Rproj` to open it as a project. In this case, the path is already set.
+**NB**: For the code from the solutions to work, you have to make sure that your script uses the root directory of the course materials as working directory. You can check the current working directory with `getwd()` and set it with `setwd()` accordingly.
+If you work with *RStudio*, you can also simply open the `tidyverse-workshop-esra-2021.Rproj` file. In that case, the correct to the working directory is already set.
 
-And here comes our very first exercise:
+That being said, let's delve into the exercises:
 
 ```{block, box.title = "1", box.body = list(fill = "white"), box.icon = "fa-star"}
 Please install and/or load the `tidyverse` package.
 ```
 
 ```{block, opts.label = "clues"}
-We always recommend using the `easypackages` packages, which can be installed with the command `install.packages("easypackages")`. After loading the package with `library(easypackages)` you can load *and* install packages with the command `easypackages::packages("fancy_package_1", "fancy_package_2", ...)`.
+We always recommend using the `easypackages` packages, which can be installed with the command `install.packages("easypackages")`. After loading the package with `library(easypackages)` you can load *and* install packages (if necessary) with one command: `easypackages::packages("fancy_package_1", "fancy_package_2", ...)`
 ```
 
 ```{r first.exercise, solution = TRUE}
@@ -43,14 +44,12 @@ easypackages::packages(
 )
 ```
 
-And here's another quick exercise.
-
 ```{block, box.title = "2", box.body = list(fill = "white"), box.icon = "fa-star"}
-Load `R`'s built-in dataset `USAarrests` and print it.
+Load the data set named `USAarrests` that is built into `R` and print it.
 ```
 
 ```{block, opts.label = "clues"}
-You could either enter `USAarrests` directly in the console or use the `print()` function.
+You first need to load the data into your environment using the `data()` command. Then you can either just run the name of the data set as a command or use the `print()` function.
 ```
 
 ```{r second.exercise, solution = TRUE}
@@ -64,7 +63,7 @@ Now, convert the data to a `tibble` and print it. Compare it to the previous out
 ```
 
 ```{block, opts.label = "clues"}
-You need the `tibble::as_tibble()` function.
+You need the `as_tibble()` function from the `tibble` package here.
 ```
 
 ```{r third.exercise, solution = TRUE}
@@ -75,24 +74,24 @@ USArrests_tibble
 ```
 
 ```{block, box.title = "4", box.body = list(fill = "white"), box.icon = "fa-star"}
-Feed the data into the function `dplyr::glimpse()`. What do you think happens to the output? 
+Have a look at the tibble using the function `glimpse()` from the `dplyr` package. Compare it to the previous outputs. 
 ```
 
 ```{block, opts.label = "clues"}
-Compare it to the previous outputs.
+The argument that you need to provide to `glimpse()` is the name of the dataframe/tibble. 
 ```
 
 ```{r fourth.exercise, solution = TRUE}
 dplyr::glimpse(USArrests_tibble)
 
 # dplyr::glimpse() provides another method of displaying the data. In such small 
-# datasets, in doesn't make a hughe difference. But as tibbles' output are 
-# reduced for large datasets, it provides a convenient method of getting a quick 
-# glimpse (haha) on the data.
+# data sets, in doesn't make a huge difference. However, as the outputs of tibbles are 
+# reduced for large data sets, it provides a convenient method of getting a quick 
+# glimpse (pun intended) of the data.
 ```
 
 ```{block, box.title = "5", box.body = list(fill = "white"), box.icon = "fa-star"}
-Finally, reload the data. Convert it to a tibble and apply `dplyr::glimpse()` in one `%>%`-workflow.
+Finally, reload the data, convert it to a tibble, and use `dplyr::glimpse()` in one combined `%>%`-workflow.
 ```
 
 ```{block, opts.label = "clues"}

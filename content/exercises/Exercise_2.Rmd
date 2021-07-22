@@ -28,7 +28,7 @@ Load the synthetic version of the *GESIS Panel* data as `CSV`.
 ```
 
 ```{block, opts.label = "clues"}
-The file format is CSV, accordingly you need the `readr` library and a function that starts with `read_...`
+The file format is CSV, so you need the `readr` library and a function that starts with `read_...`
 ```
 
 ```{r first.exercise, solution = TRUE}
@@ -79,7 +79,7 @@ Export the dataset in the statistical software format of your choice and, if you
 ```
 
 ```{block, opts.label = "clues"}
-Again, you need one of th `haven::write_...()` functions.
+Again, you need one of the `haven::write_...()` functions.
 ```
 
 ```{r bonus.exercise, solution = TRUE}
