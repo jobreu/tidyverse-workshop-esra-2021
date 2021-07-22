@@ -353,7 +353,6 @@ gpc <-
 gpc <-
   gpc %>% 
   readr::type_convert(
-    gpc,
     col_types = cols(
       age_cat = col_factor()
     )
