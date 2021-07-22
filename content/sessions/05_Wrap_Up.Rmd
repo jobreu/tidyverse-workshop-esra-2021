@@ -25,6 +25,9 @@ options(htmltools.dir.version = FALSE,
 
 opts_chunk$set(echo = TRUE, fig.align = "center", message = FALSE)
 
+# load custom functions
+source("./content/R/helper_functions.R")
+
 # load course content table
 source("./content/R/course_content.R")
 
