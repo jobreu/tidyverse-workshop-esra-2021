@@ -339,7 +339,7 @@ gpc
 
 ---
 
-# After loading the data
+## After loading the data
 
 ```{r readr_example_col_changeD_after, echo = TRUE}
 gpc <- 
